@@ -18,7 +18,7 @@ public abstract class Producto {
     private String unidadMedida;
     private String descripcion;
     private Dimension dimension;
-
+    
     public String getNombre() {
         return nombre;
     }

@@ -6,6 +6,7 @@
 package Inventario;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,5 +82,26 @@ public class Slot implements Serializa{
             slot.setProductos(productos);
             return slot;
         }catch(JSONException e){return null;}
+    }
+    public ArrayList<ProductoAgregado> agregaProducto(ProductoAgregado producto) {
+        int currentUsedSpace = 0;
+        if (productos.isEmpty()) {
+        } else {
+            for (ProductoAgregado product : productos) {
+                currentUsedSpace = (product.getProducto().getDimension().getDimension() + currentUsedSpace);
+            }
+        }
+        if (productos.isEmpty()) {
+            productos.add(producto);
+            return productos;
+        } else {
+            if ((producto.getProducto().getDimension().getDimension() + currentUsedSpace) > espacio) {
+                JOptionPane.showMessageDialog(null, "Espacio insuficiente", "El producto que desea agregar supera el limite de espacio", JOptionPane.ERROR_MESSAGE);
+                return productos;
+            } else {
+                productos.add(producto);
+                return productos;
+            }
+        }
     }
 }

@@ -25,7 +25,9 @@ public class Administrador extends Usuario{
     public void crearEstante(String nombre, int cantidadSlot){}
     public void crearEstante(String nombre, int cantidadSlots, int espacioPorSlot){}
     public void crearEstante(String nombre, ArrayList<Slot> slots){}
-    public void agregarProductoCatalogo(Producto producto){}
+    public void agregarProductoCatalogo(Producto producto){
+    
+    }
     public void quitarProductoCatalogo(Producto producto){}
     public void quitarProductoCatalogo(String nombre){}
 

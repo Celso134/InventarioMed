@@ -29,9 +29,19 @@ public class Dimension{
         this.dimension = dimension;
     }
     
-    public Dimension(String nombre, int dimension){
+    public Dimension(String nombre){
     this.nombre = nombre;
-    this.dimension = dimension;
+    switch(nombre){
+        case "Chico":
+            dimension = 5;
+            break;
+        case "Mediano":
+            dimension = 10;
+            break;
+        case "Grande":
+            dimension = 15;
+            break;
+    }
     }
     
 }

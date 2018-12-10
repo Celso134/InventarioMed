@@ -46,6 +46,8 @@ public class OperadorFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
         eliminarProductosPanel = new javax.swing.JPanel();
         listaEstantes1 = new javax.swing.JComboBox<>();
         etiquetaEstante1 = new javax.swing.JLabel();
@@ -115,12 +117,16 @@ public class OperadorFrame extends javax.swing.JFrame {
         tamanioRestanteEstante.setEditable(false);
         tamanioRestanteEstante.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jLabel1.setText("Tamaño total del estante");
+        jLabel1.setText("Tamaño total del espacio");
 
-        jLabel2.setText("Tamaño restante del estante");
+        jLabel2.setText("Tamaño restante del espacio");
 
         jButton1.setText("Guardar cambios");
         jButton1.setToolTipText("");
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Espacios del estante" }));
+
+        jLabel5.setText("Espacio: \"  \"");
 
         javax.swing.GroupLayout agregarProductosPanelLayout = new javax.swing.GroupLayout(agregarProductosPanel);
         agregarProductosPanel.setLayout(agregarProductosPanelLayout);
@@ -129,8 +135,12 @@ public class OperadorFrame extends javax.swing.JFrame {
             .addGroup(agregarProductosPanelLayout.createSequentialGroup()
                 .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(agregarProductosPanelLayout.createSequentialGroup()
+                        .addGap(118, 118, 118)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(agregarProductosPanelLayout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tamanioRestanteEstante)
                             .addComponent(jComboBox1, 0, 125, Short.MAX_VALUE)
                             .addComponent(tamanioEstante)
@@ -142,11 +152,9 @@ public class OperadorFrame extends javax.swing.JFrame {
                             .addComponent(etiquetaProducto)
                             .addComponent(etiquetaEstante)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2)))
-                    .addGroup(agregarProductosPanelLayout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         agregarProductosPanelLayout.setVerticalGroup(
             agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,19 +167,23 @@ public class OperadorFrame extends javax.swing.JFrame {
                 .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(etiquetaProducto))
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
+                .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
                 .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cantidadDeProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cantidadProducto))
-                .addGap(52, 52, 52)
+                .addGap(28, 28, 28)
                 .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tamanioEstante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(39, 39, 39)
-                .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tamanioRestanteEstante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(51, 51, 51)
+                .addGap(72, 72, 72)
                 .addComponent(jButton1)
                 .addContainerGap(57, Short.MAX_VALUE))
         );
@@ -296,7 +308,7 @@ public class OperadorFrame extends javax.swing.JFrame {
             .addGroup(panelIzquierdaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelIzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, Short.MAX_VALUE)
+                    .addComponent(cerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                     .addComponent(eliminarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(agregarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -400,10 +412,12 @@ public class OperadorFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JComboBox<String> listaEstantes;

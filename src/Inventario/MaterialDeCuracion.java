@@ -7,6 +7,7 @@ package Inventario;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONObject;
@@ -16,6 +17,7 @@ public class MaterialDeCuracion extends Producto{
     
     private String clasificacion;
 
+    
     public String getClasificacion() {
         return clasificacion;
     }
@@ -45,7 +47,7 @@ public class MaterialDeCuracion extends Producto{
             MaterialDeCuracion materialDeCuracion = new MaterialDeCuracion();
             materialDeCuracion.setClasificacion(json.getString("clasificacion"));
             materialDeCuracion.setDescripcion(json.getString("descripcion"));
-            materialDeCuracion.setDimension(new Dimension(json.getString("nombreTamaño"),json.getInt("TamañoEnNumero")));
+            materialDeCuracion.setDimension(new Dimension(json.getString("nombreTamaño")));
             materialDeCuracion.setFechaCaducidad(convertToDate(json.getString("FechaCaducidad")));
             materialDeCuracion.setPrecio(json.getLong("precio"));
             materialDeCuracion.setUnidadMedida(json.getString("UnidadDeMedida"));
@@ -57,7 +59,7 @@ public class MaterialDeCuracion extends Producto{
         }
     }
     
-    private static java.util.Date convertToDate(String date){
+    public static java.util.Date convertToDate(String date){
         try {
             return new SimpleDateFormat("dd/mm/yyyy").parse(date);
         } catch (ParseException ex) {
@@ -65,7 +67,7 @@ public class MaterialDeCuracion extends Producto{
         }
     }
     
-    private String convertDateToString(java.util.Date date){
+    public String convertDateToString(java.util.Date date){
         return new SimpleDateFormat("dd/mm/yyyy").format(date);
     }
 }

@@ -6,6 +6,7 @@
 package GUI;
 
 import javax.swing.JOptionPane;
+import Managers.*;
 
 /**
  *
@@ -13,11 +14,16 @@ import javax.swing.JOptionPane;
  */
 public class AdministradorFrame extends javax.swing.JFrame {
 
+    ManejadorCatalogoProducto manejadorCatalogo;
+    
     /**
      * Creates new form OperadorFrame
      */
     public AdministradorFrame() {
         initComponents();
+        manejadorCatalogo = new ManejadorCatalogoProducto();
+        java.util.ArrayList<Inventario.Producto> inventario = new java.util.ArrayList<>();
+        inventario = manejadorCatalogo.obtenerCatalogoProductos(inventario);
     }
 
     /**
@@ -59,10 +65,9 @@ public class AdministradorFrame extends javax.swing.JFrame {
         tipoDeProducto = new javax.swing.JLabel();
         nombreProducto = new javax.swing.JTextField();
         precioProducto = new javax.swing.JTextField();
-        fechaCaducidad = new javax.swing.JTextField();
         unidadDeMedida = new javax.swing.JTextField();
         clasifOEspecif = new javax.swing.JTextField();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        tamanioProducto = new javax.swing.JComboBox<>();
         productNeim = new javax.swing.JLabel();
         productCost = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -70,8 +75,10 @@ public class AdministradorFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        fechaCaducidad = new javax.swing.JTextField();
+        dimensionProducto = new javax.swing.JTextField();
         reducirCatalogoPanel = new javax.swing.JPanel();
-        listaEstantes1 = new javax.swing.JComboBox<>();
+        listaProductos = new javax.swing.JComboBox<>();
         etiquetaEstante1 = new javax.swing.JLabel();
         nombreProductoActual = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
@@ -154,11 +161,10 @@ public class AdministradorFrame extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tamanioEspacio)
                     .addComponent(cantidadDeEspacios)
-                    .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(wardEstante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cantidadEspacios)
-                        .addComponent(etiquetaFormaCrearUno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(nombreEstante))
+                    .addComponent(wardEstante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cantidadEspacios)
+                    .addComponent(etiquetaFormaCrearUno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nombreEstante)
                     .addComponent(nombreEstante2)
                     .addComponent(etiquetaFormaCrearDos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(38, 38, 38)
@@ -220,13 +226,13 @@ public class AdministradorFrame extends javax.swing.JFrame {
 
         tipoDeProducto.setText("Tipo de producto");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione tamaño", "Chico", "Mediano", "Grande" }));
+        tamanioProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione tamaño", "Chico", "Mediano", "Grande" }));
 
         productNeim.setText("Nombre del producto");
 
         productCost.setText("Precio del producto");
 
-        jLabel6.setText("Fecha de caducidad");
+        jLabel6.setText("Fecha de caducidad d/m/a");
 
         jLabel7.setText("Unidad de medida");
 
@@ -236,6 +242,8 @@ public class AdministradorFrame extends javax.swing.JFrame {
 
         jButton3.setText("Agregar al catálogo");
 
+        dimensionProducto.setEditable(false);
+
         javax.swing.GroupLayout ampliarCatalogoPanelLayout = new javax.swing.GroupLayout(ampliarCatalogoPanel);
         ampliarCatalogoPanel.setLayout(ampliarCatalogoPanelLayout);
         ampliarCatalogoPanelLayout.setHorizontalGroup(
@@ -243,36 +251,40 @@ public class AdministradorFrame extends javax.swing.JFrame {
             .addGroup(ampliarCatalogoPanelLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(ampliarCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(agregarUnProducto)
+                    .addGroup(ampliarCatalogoPanelLayout.createSequentialGroup()
+                        .addComponent(agregarUnProducto)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(ampliarCatalogoPanelLayout.createSequentialGroup()
                         .addGroup(ampliarCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dimensionProducto)
+                            .addComponent(tamanioProducto, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(clasifOEspecif, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(unidadDeMedida, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fechaCaducidad, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(precioProducto, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nombreProducto, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tiposDeProducto, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(47, 47, 47)
+                            .addComponent(tiposDeProducto, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(fechaCaducidad))
+                        .addGap(42, 42, 42)
                         .addGroup(ampliarCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(ampliarCatalogoPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addContainerGap(79, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ampliarCatalogoPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ampliarCatalogoPanelLayout.createSequentialGroup()
                                 .addGroup(ampliarCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(ampliarCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ampliarCatalogoPanelLayout.createSequentialGroup()
+                                            .addGap(3, 3, 3)
+                                            .addGroup(ampliarCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)))
+                                        .addComponent(tipoDeProducto, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(jButton3))
+                                .addGap(19, 59, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ampliarCatalogoPanelLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(ampliarCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(productCost, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(productNeim, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tipoDeProducto, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(productNeim, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(0, 0, Short.MAX_VALUE))))))
-            .addGroup(ampliarCatalogoPanelLayout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ampliarCatalogoPanelLayout.setVerticalGroup(
             ampliarCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,8 +305,8 @@ public class AdministradorFrame extends javax.swing.JFrame {
                     .addComponent(productCost))
                 .addGap(18, 18, 18)
                 .addGroup(ampliarCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fechaCaducidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(fechaCaducidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(ampliarCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(unidadDeMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -305,18 +317,25 @@ public class AdministradorFrame extends javax.swing.JFrame {
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addGroup(ampliarCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tamanioProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(ampliarCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dimensionProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         panelDerecha.add(ampliarCatalogoPanel, "card5");
 
         reducirCatalogoPanel.setPreferredSize(new java.awt.Dimension(390, 410));
 
-        listaEstantes1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Productos", " " }));
+        listaProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Productos", " " }));
+        listaProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaProductosActionPerformed(evt);
+            }
+        });
 
         etiquetaEstante1.setText("Producto: \"  \"");
 
@@ -356,7 +375,7 @@ public class AdministradorFrame extends javax.swing.JFrame {
                             .addGroup(reducirCatalogoPanelLayout.createSequentialGroup()
                                 .addGroup(reducirCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(nombreProductoActual)
-                                    .addComponent(listaEstantes1, 0, 125, Short.MAX_VALUE))
+                                    .addComponent(listaProductos, 0, 125, Short.MAX_VALUE))
                                 .addGap(47, 47, 47)
                                 .addGroup(reducirCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(etiquetaEstante1)
@@ -368,7 +387,7 @@ public class AdministradorFrame extends javax.swing.JFrame {
             .addGroup(reducirCatalogoPanelLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(reducirCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(listaEstantes1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(listaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(etiquetaEstante1))
                 .addGap(18, 18, 18)
                 .addGroup(reducirCatalogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -472,6 +491,8 @@ public class AdministradorFrame extends javax.swing.JFrame {
         panelDerecha.add(reducirCatalogoPanel);
         panelDerecha.repaint();
         panelDerecha.revalidate();
+        
+        
     }//GEN-LAST:event_reducirCatalogoActionPerformed
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
@@ -491,6 +512,10 @@ panelDerecha.removeAll();
         panelDerecha.repaint();
         panelDerecha.revalidate();
     }//GEN-LAST:event_ampliarCatalogoActionPerformed
+
+    private void listaProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaProductosActionPerformed
+        
+    }//GEN-LAST:event_listaProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -528,6 +553,31 @@ panelDerecha.removeAll();
         });
     }
 
+    public void agregarProductoCatalogo(){
+        boolean trel = true;
+        if(nombreProducto.getText().equals("") || precioProducto.getText().equals("") || unidadDeMedida.getText().equals("") || clasifOEspecif.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "No puede dejar un campo en blanco.", "Error en campos", JOptionPane.ERROR_MESSAGE);
+        }else{
+        switch (tiposDeProducto.getSelectedIndex()){
+            case 0:
+                JOptionPane.showMessageDialog(this, "Seleccione un tipo de producto porfavor.", "Error en campos", JOptionPane.ERROR_MESSAGE);
+                trel = false;
+                break;
+            case 1:
+                trel = manejadorCatalogo.agregarProducto("Medicamento", nombreProducto.getText(),fechaCaducidad.getText(),Float.parseFloat(precioProducto.getText()),unidadDeMedida.getText(), "Medicamento", dimensionProducto.getText(), clasifOEspecif.getText());
+                break;
+            case 2:
+                trel = manejadorCatalogo.agregarProducto("Material", nombreProducto.getText(),fechaCaducidad.getText(),Float.parseFloat(precioProducto.getText()),unidadDeMedida.getText(), "Medicamento", dimensionProducto.getText(), clasifOEspecif.getText());
+                break;
+        }
+    }
+        if(trel){
+            JOptionPane.showMessageDialog(this, "Producto agregado satisfactoriamente.", "Producto agregado", JOptionPane.INFORMATION_MESSAGE);
+        }
+}
+    
+    public void crearEstante(){}
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Welcome;
     private javax.swing.JButton agregarEstante;
@@ -539,6 +589,7 @@ panelDerecha.removeAll();
     private javax.swing.JTextField cantidadEspacios;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JTextField clasifOEspecif;
+    private javax.swing.JTextField dimensionProducto;
     private javax.swing.JPanel equisde;
     private javax.swing.JLabel espaciosDelEstante;
     private javax.swing.JLabel estanteNeim;
@@ -552,7 +603,6 @@ panelDerecha.removeAll();
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -564,7 +614,7 @@ panelDerecha.removeAll();
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JComboBox<String> listaEstantes1;
+    private javax.swing.JComboBox<String> listaProductos;
     private javax.swing.JTextField nombreEstante;
     private javax.swing.JTextField nombreEstante2;
     private javax.swing.JTextField nombreProducto;
@@ -581,6 +631,7 @@ panelDerecha.removeAll();
     private javax.swing.JPanel reducirCatalogoPanel;
     private javax.swing.JLabel stanteNeim;
     private javax.swing.JTextField tamanioEspacio;
+    private javax.swing.JComboBox<String> tamanioProducto;
     private javax.swing.JLabel tipoDeProducto;
     private javax.swing.JComboBox<String> tiposDeProducto;
     private javax.swing.JTextField unidadDeMedida;

@@ -29,6 +29,33 @@ public class CatalogoProducto implements Serializa{
     }
     
     public ArrayList<Producto> consultaCatalogo(){return null;}
+    
+    public boolean agregarProducto(String tipoProducto, String nombre, String date, float precio, String unidadMedida, String descripcion, String dimension, String distintivo){
+        switch(tipoProducto){
+            case "Material":
+                MaterialDeCuracion producto = new MaterialDeCuracion();
+                producto.setClasificacion(distintivo);
+                producto.setDescripcion(descripcion);
+                producto.setDimension(new Dimension(dimension));
+                producto.setFechaCaducidad(MaterialDeCuracion.convertToDate(date));
+                producto.setNombre(nombre);
+                producto.setPrecio(precio);
+                producto.setUnidadMedida(unidadMedida);
+                productos.add(producto);
+                return true;
+            case "Medicamento":
+                Medicamento productoM = new Medicamento();
+                productoM.setEspecificacion(distintivo);
+                productoM.setDescripcion(descripcion);
+                productoM.setDimension(new Dimension(dimension));
+                productoM.setFechaCaducidad(Medicamento.convertToDate(date));
+                productoM.setNombre(nombre);
+                productoM.setPrecio(precio);
+                productoM.setUnidadMedida(unidadMedida);
+                productos.add(productoM);
+                return true;
+        }return false;
+    }
 
     @Override
     public String serializa() {
