@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import GUI.MainFrame;
 import GUI.ConsultorFrame;
+import GUI.OperadorFrame;
 
 public class Operador extends Usuario{
 
@@ -42,6 +43,7 @@ public class Operador extends Usuario{
 
     @Override
     public void lanzarFrame() {
-        
+        OperadorFrame oF = new OperadorFrame();
+        oF.setVisible(true);
     }
 }

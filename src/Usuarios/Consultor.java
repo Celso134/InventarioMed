@@ -37,6 +37,7 @@ public class Consultor extends Usuario{
 
     @Override
     public void lanzarFrame() {
-        
+        ConsultorFrame cF = new ConsultorFrame();
+        cF.setVisible(true);
     }
 }

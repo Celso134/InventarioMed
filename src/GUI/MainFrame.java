@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.JOptionPane;
 import Managers.*;
+import Usuarios.*;
 
 /**
  *
@@ -115,6 +116,11 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         iniciarSesion.setText("Iniciar Sesion");
+        iniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iniciarSesionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
@@ -351,6 +357,10 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_RegistraruserActionPerformed
 
+    private void iniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSesionActionPerformed
+        ingresar();
+    }//GEN-LAST:event_iniciarSesionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -402,6 +412,14 @@ public class MainFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Usuario creado satisfactoriamente", "Usuario creado", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
+        }
+    }
+    
+    public void ingresar(){
+        boolean trel;
+        trel = usersManager.logeo(passwordField.getText(), userNameField.getText(),this);
+        if(trel){
+            JOptionPane.showMessageDialog(null, "Información de usuario no válida.", "Error en campos", JOptionPane.ERROR_MESSAGE);
         }
     }
     

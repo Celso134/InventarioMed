@@ -6,33 +6,39 @@
 package Managers;
 
 import Usuarios.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author copec
  */
 public class ManejadorUsuarios {
+
     private java.util.ArrayList<Usuarios.Usuario> usuarios;
     private ManejadorArchivo manejadorArchivo;
-    
-    public ManejadorUsuarios(){
+
+    public ManejadorUsuarios() {
         usuarios = new java.util.ArrayList<>();
     }
-    
-    public boolean validarUsuario(String name, String pass){
+
+    public boolean validarUsuario(String name, String pass) {
         boolean aux = false;
-        if(usuarios.isEmpty()){return aux;}else{
-        for(Usuarios.Usuario user : usuarios){
-            if(user.getNombre().equals(name)){
-                aux = true;
-                return aux;
-            }else{
-        aux = false;
+        if (usuarios.isEmpty()) {
+            return aux;
+        } else {
+            for (Usuarios.Usuario user : usuarios) {
+                if (user.getNombre().equals(name)) {
+                    aux = true;
+                    return aux;
+                } else {
+                    aux = false;
+                }
             }
         }
-        }return aux;
+        return aux;
     }
-    public void agregarUsuario(String name, String pass, int who){
-        switch(who){
+
+    public void agregarUsuario(String name, String pass, int who) {
+        switch (who) {
             case 3:
                 Administrador usuario = new Administrador(name, pass);
                 usuarios.add(usuario);
@@ -42,29 +48,49 @@ public class ManejadorUsuarios {
                 usuarios.add(usuarioOp);
                 break;
             case 2:
-                Consultor usuarioCo = new Consultor(name,pass);
+                Consultor usuarioCo = new Consultor(name, pass);
                 usuarios.add(usuarioCo);
                 break;
         }
     }
-    public Usuarios.Usuario quitarUsuario(Usuarios.Usuario usuario){return usuario;}
-    public void guardaUsuario(){
+
+    public Usuarios.Usuario quitarUsuario(Usuarios.Usuario usuario) {
+        return usuario;
+    }
+
+    public void guardaUsuario() {
         manejadorArchivo = new ManejadorArchivo("Usuarios", false);
         for (Usuarios.Usuario usuario : usuarios) {
             manejadorArchivo.escribeLinea(usuario.serializa());
         }
         manejadorArchivo.cerrarArchivo();
     }
-    public java.util.ArrayList<Usuarios.Usuario> cargaUsuarios(){
-        try(java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(new java.io.File("Usuarios")))){
-                String line;
-                Usuario usuario;
-                while((line = br.readLine()) != null)
-                    if( (usuario = Usuarios.Usuario.deserializa(line)) != null)
-                        usuarios.add(usuario);
-            }catch(java.io.IOException e){
-                e.printStackTrace();
+
+    public java.util.ArrayList<Usuarios.Usuario> cargaUsuarios() {
+        try (java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(new java.io.File("Usuarios")))) {
+            String line;
+            Usuario usuario;
+            while ((line = br.readLine()) != null) {
+                if ((usuario = Usuarios.Usuario.deserializa(line)) != null) {
+                    usuarios.add(usuario);
+                }
+            }
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
         }
         return usuarios;
+    }
+
+    public boolean logeo(String pass, String nick, GUI.MainFrame mf) {
+        boolean trel = true;
+        for (Usuarios.Usuario user : usuarios) {
+            if (nick.equals(user.getNombre()) && pass.equals(user.getPass())) {
+                mf.dispose();
+                user.lanzarFrame();
+                trel = false;
+                return trel;
+            }
+        }
+        return trel;
     }
 }
