@@ -10,9 +10,16 @@ public class ManejadorInventario {
     public ManejadorInventario(Inventario inventario) {
         this.inventario = inventario;
     }
+    
+    public void setInventario(Inventario inventario){
+        this.inventario = inventario;
+    }
+    public Inventario getInventario(){
+        return inventario;
+    }
 
-    public void guardaInventario() {
-        manejadorArchivo = new ManejadorArchivo("Inventario", false);
+    public void guardaInventario(boolean trel) {
+        manejadorArchivo = new ManejadorArchivo("Inventario", trel);
         manejadorArchivo.escribeLinea(inventario.serializa());
         manejadorArchivo.cerrarArchivo();
     }

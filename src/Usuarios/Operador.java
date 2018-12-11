@@ -37,8 +37,11 @@ public class Operador extends Usuario{
         return inv;
     }
     public java.util.ArrayList<Estante> getEstantes(){
-    return Inventario.cargaInventario().getEstantes();
-    
+        inv = Inventario.cargaInventario();  
+        return inv.getEstantes();
+    }
+    public void setEstantes(java.util.ArrayList<Estante> estante){
+        inv.setEstantes(estante);
     }
     @Override
     public String serializa() {
@@ -52,7 +55,7 @@ public class Operador extends Usuario{
             return null;
         }
     }
-
+    
     @Override
     public void lanzarFrame() {
         OperadorFrame oF = new OperadorFrame(this);

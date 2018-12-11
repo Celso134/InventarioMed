@@ -772,7 +772,7 @@ panelDerecha.removeAll();
             JOptionPane.showMessageDialog(this, "No puede dejar un campo en blanco.", "Error en campos", JOptionPane.ERROR_MESSAGE);
         } else {
             admin.crearEstante(nombreEstante2.getText(), Integer.parseInt(cantidadDeEspacios.getText()), Integer.parseInt(tamanioEspacio.getText()));
-            manejadorInventario.guardaInventario();
+            manejadorInventario.guardaInventario(true);
             recargaCombo();
         }
     }
@@ -782,7 +782,7 @@ panelDerecha.removeAll();
             JOptionPane.showMessageDialog(this, "No puede dejar un campo en blanco.", "Error en campos", JOptionPane.ERROR_MESSAGE);
         } else {
             admin.crearEstante(nombreEstante.getText(), Integer.parseInt(cantidadEspacios.getText()));
-            manejadorInventario.guardaInventario();
+            manejadorInventario.guardaInventario(true);
             recargaCombo();
         }
     }
