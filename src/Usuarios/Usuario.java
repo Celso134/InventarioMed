@@ -28,6 +28,14 @@ public abstract class Usuario {
     }
     public abstract String serializa();
     public abstract void lanzarFrame();
+
+    public ManejadorInventario getManejadorInventario() {
+        return manejadorInventario;
+    }
+
+    public ManejadorCatalogoProducto getManejadorCatalogoProducto() {
+        return manejadorCatalogoProducto;
+    }
     
     public static Usuario deserializa(String line){
         try{

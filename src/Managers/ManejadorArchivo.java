@@ -37,7 +37,6 @@ public class ManejadorArchivo {
     
     public String leerLinea(){
         try{
-            br.readLine();
             return br.readLine();
         }catch(IOException e){return null;}
     }

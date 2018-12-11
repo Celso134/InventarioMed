@@ -19,14 +19,22 @@ import GUI.OperadorFrame;
 
 public class Operador extends Usuario{
 
+    Managers.ManejadorInventario manejadorInventario;
+    Inventario inv;
+    
     public Operador(String nombre, String pass) {
         super(nombre, pass);
+        inv = new Inventario();
     }
     
     public void agregarProductoEstante(ProductoAgregado productoAgregado){}
-    public void quitarProductoEstante(String nombreProducto, Estante estante){}
+    public void quitarProductoEstante(String nombreProducto, Estante estante){
+    }
     public void quitarProductoEstante(ProductoAgregado productoAgregado, Estante estante){}
     public void guardaInventario(){}
+    public Inventario getInventario(){
+        return inv;
+    }
 
     @Override
     public String serializa() {
@@ -43,7 +51,7 @@ public class Operador extends Usuario{
 
     @Override
     public void lanzarFrame() {
-        OperadorFrame oF = new OperadorFrame();
+        OperadorFrame oF = new OperadorFrame(this);
         oF.setVisible(true);
     }
 }

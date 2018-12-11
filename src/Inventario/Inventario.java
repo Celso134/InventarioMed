@@ -82,4 +82,11 @@ public class Inventario implements Serializa{
             return null;
         }
     }
+    public boolean agregarObjetoEstante(ProductoAgregado producto, int index){
+        
+        Estante estante;
+        estante = estantes.get(index);
+        estante.agregarProducto(producto);
+        return false;
+    }
 }
