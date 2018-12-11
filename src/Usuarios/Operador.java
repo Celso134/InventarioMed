@@ -18,13 +18,14 @@ import GUI.ConsultorFrame;
 import GUI.OperadorFrame;
 
 public class Operador extends Usuario{
-
+    
+    Managers.ManejadorCatalogoProducto manejadorCatalogo;
     Managers.ManejadorInventario manejadorInventario;
     Inventario inv;
     
     public Operador(String nombre, String pass) {
         super(nombre, pass);
-        inv = new Inventario();
+        inv = Inventario.cargaInventario();
     }
     
     public void agregarProductoEstante(ProductoAgregado productoAgregado){}
@@ -35,7 +36,10 @@ public class Operador extends Usuario{
     public Inventario getInventario(){
         return inv;
     }
-
+    public java.util.ArrayList<Estante> getEstantes(){
+    return Inventario.cargaInventario().getEstantes();
+    
+    }
     @Override
     public String serializa() {
         try {

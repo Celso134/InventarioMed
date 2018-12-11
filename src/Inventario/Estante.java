@@ -81,13 +81,14 @@ public class Estante implements Serializa{
         espacioRestante = espacioTotal;
     }
     public Estante(){}
-    public boolean agregarProducto(ProductoAgregado producto){
+    public void agregarProducto(ProductoAgregado producto){
         if(producto.getProducto().getDimension().getDimension() < espacioRestante){
             Slot slot = slots.get(1);
             slot.agregarProducto(producto);
-            espacioRestante = espacioRestante - producto.getProducto().getDimension().getDimension();
+            System.out.println(producto.getProducto().getDimension().getDimension());
+            this.espacioRestante = espacioRestante - producto.getProducto().getDimension().getDimension();
+            System.out.println(espacioRestante);
         }
-        return false;
     }
 
     @Override
@@ -97,6 +98,7 @@ public class Estante implements Serializa{
             json.put("nombreEstante", getNombre());
             json.put("descripcion", "jajajajtl");
             json.put("tamanio", getEspacioTotal());
+            json.put("tamanioRestante", getEspacioRestante());
             JSONArray jSlots = new JSONArray();
             for(Slot slot : slots){
                 jSlots.put(slot.serializa());
@@ -113,6 +115,7 @@ public class Estante implements Serializa{
             estante.setDescripcion(json.getString("descripcion"));
             estante.setNombre(json.getString("nombreEstante"));
             estante.setEspacioTotal(json.getInt("tamanio"));
+            estante.setEspacioRestante(json.getInt("tamanioRestante"));
             java.util.ArrayList<Slot> slots;
             slots = new java.util.ArrayList<>();
             JSONArray jSlots = json.getJSONArray("slots");
@@ -125,5 +128,13 @@ public class Estante implements Serializa{
             ex.printStackTrace();
             return null;
         }
+    }
+
+    public void setEspacioRestante(int espacioRestante) {
+        this.espacioRestante = espacioRestante;
+    }
+
+    public int getEspacioRestante() {
+        return espacioRestante;
     }
 }
