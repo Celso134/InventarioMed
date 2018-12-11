@@ -5,6 +5,7 @@
  */
 package Inventario;
 
+import Managers.ManejadorArchivo;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,9 +20,11 @@ import org.json.JSONObject;
 public class Inventario implements Serializa{
     private java.util.ArrayList<Estante> estantes;
     private String direccion;
+    private static ManejadorArchivo manejadorArchivo;
 
     public Inventario(){
         estantes = new java.util.ArrayList<>();
+        direccion = "Jajatl";
     }
     
     public ArrayList<Estante> getEstantes() {
@@ -73,14 +76,16 @@ public class Inventario implements Serializa{
             java.util.ArrayList<Estante> estantes;
             estantes = new java.util.ArrayList<>();
             JSONArray jEstantes = json.getJSONArray("estantes");
-            for(int i = 0; i <= jEstantes.length(); i++){
+            for(int i = 0; i < jEstantes.length(); i++){
                 estantes.add(Estante.deserializa(jEstantes.getString(i)));
+                Estante.deserializa(jEstantes.getString(i)).getNombre();
             }
             inv.setEstantes(estantes);
             return inv;
         } catch (JSONException ex) {
+            ex.printStackTrace();
             return null;
-        }
+       }
     }
     public boolean agregarObjetoEstante(ProductoAgregado producto, int index){
         
@@ -88,5 +93,24 @@ public class Inventario implements Serializa{
         estante = estantes.get(index);
         estante.agregarProducto(producto);
         return false;
+    }
+    
+    
+       public static Inventario cargaInventario() {
+           String ar;
+           Inventario inv = new Inventario();
+        manejadorArchivo = new ManejadorArchivo("Inventario", true);
+        if (manejadorArchivo.leerLinea() == null) {
+            manejadorArchivo.cerrarArchivo();
+            System.out.println("No hay Inventario para cargar.");
+            return inv;
+        } else {
+            manejadorArchivo.cerrarArchivo();
+            manejadorArchivo = new ManejadorArchivo("Inventario", true);
+            System.out.println("Inventario cargado");
+            ar = manejadorArchivo.leerLinea();
+            manejadorArchivo.cerrarArchivo();
+            return (Inventario.crearInventario(ar));
+        }
     }
 }

@@ -53,7 +53,7 @@ public class Medicamento extends Producto{
             medicamento.setNombre(json.getString("nombre"));
             return medicamento;
         }catch(JSONException e){
-            System.out.println("Ese objeto no era un medicamento, procediendo a deserealizar un Material de curacion.");
+            System.out.println("Ese no era un medicamento, procediendo a deserealizar un Material de curacion.");
             return null;
         }
     }
@@ -68,5 +68,15 @@ public class Medicamento extends Producto{
     
     public String convertDateToString(java.util.Date date){
         return new SimpleDateFormat("dd/mm/yyyy").format(date);
+    }
+
+    @Override
+    public String getDistintivo() {
+        return especificacion;
+    }
+
+    @Override
+    public String queEres() {
+        return "Especificacion";
     }
 }

@@ -19,15 +19,27 @@ public abstract class Usuario {
     private String pass;
     private ManejadorInventario manejadorInventario;
     private ManejadorCatalogoProducto manejadorCatalogoProducto;
+    private ManejadorUsuarios usersManager;
     
-    public String getNombre(){return nombre;}
-    public String getPass(){return pass;}
+    
     public Usuario(String nombre, String pass){
     this.nombre = nombre;
     this.pass = pass;
     }
+    
+    
+    public void setUsersManager(ManejadorUsuarios usersManager){
+        this.usersManager = usersManager;
+    }
+    public ManejadorUsuarios getUsersManager(){
+        return usersManager;
+    }
+    public String getNombre(){return nombre;}
+    public String getPass(){return pass;}
+    
     public abstract String serializa();
     public abstract void lanzarFrame();
+    
 
     public ManejadorInventario getManejadorInventario() {
         return manejadorInventario;

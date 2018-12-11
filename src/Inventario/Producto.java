@@ -5,6 +5,7 @@
  */
 package Inventario;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -66,7 +67,11 @@ public abstract class Producto {
     public void setDimension(Dimension dimension) {
         this.dimension = dimension;
     }
-    
+    public String convertDateToString(java.util.Date date){
+        return new SimpleDateFormat("dd/mm/yyyy").format(date);
+    }
+    public abstract String queEres();
+    public abstract String getDistintivo();
     public abstract String serializa();
     public static Producto deserializa(String line){
         Producto producto = Medicamento.deserializa(line);

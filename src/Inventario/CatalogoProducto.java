@@ -79,12 +79,13 @@ public class CatalogoProducto implements Serializa{
             JSONObject json = new JSONObject(linea);
             JSONArray jProductos = json.getJSONArray("producto");
             ArrayList<Producto> productos = new ArrayList<>();
-            for(int i = 0; i <= jProductos.length(); i++){
+            for(int i = 0; i < jProductos.length(); i++){
                 productos.add(Producto.deserializa(jProductos.getString(i)));
             }
             cP.setProductos(productos);
             return cP;
         } catch (JSONException ex) {
+            ex.printStackTrace();
             return null;
         }
     }

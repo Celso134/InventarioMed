@@ -26,6 +26,7 @@ public class MaterialDeCuracion extends Producto{
         this.clasificacion = clasificacion;
     }
     
+    
     @Override
     public String serializa() {
         try{
@@ -69,5 +70,15 @@ public class MaterialDeCuracion extends Producto{
     
     public String convertDateToString(java.util.Date date){
         return new SimpleDateFormat("dd/mm/yyyy").format(date);
+    }
+
+    @Override
+    public String getDistintivo() {
+        return clasificacion;
+    }
+
+    @Override
+    public String queEres() {
+        return "Clasificacion";
     }
 }

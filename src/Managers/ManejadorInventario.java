@@ -1,39 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Managers;
 
-/**
- *
- * @author copec
- */
+import Inventario.Inventario;
+
 public class ManejadorInventario {
-    private Inventario.Inventario inventario;
+
+    private Inventario inventario;
     private ManejadorArchivo manejadorArchivo;
 
-    public ManejadorInventario(Inventario.Inventario inventario){
-    this.inventario = inventario;
-}
-    
-    public void guardaInventario(){
-        manejadorArchivo = new ManejadorArchivo("Inventario",false);
+    public ManejadorInventario(Inventario inventario) {
+        this.inventario = inventario;
+    }
+
+    public void guardaInventario() {
+        manejadorArchivo = new ManejadorArchivo("Inventario", false);
         manejadorArchivo.escribeLinea(inventario.serializa());
         manejadorArchivo.cerrarArchivo();
     }
-    public void cargaInventario() {
+
+    public Inventario cargaInventario() {
+        String ar;
+        Inventario inv = new Inventario();
         manejadorArchivo = new ManejadorArchivo("Inventario", true);
         if (manejadorArchivo.leerLinea() == null) {
             manejadorArchivo.cerrarArchivo();
             System.out.println("No hay Inventario para cargar.");
+            return inv;
         } else {
             manejadorArchivo.cerrarArchivo();
             manejadorArchivo = new ManejadorArchivo("Inventario", true);
-            inventario = Inventario.Inventario.crearInventario(manejadorArchivo.leerLinea());
             System.out.println("Inventario cargado");
+            ar = manejadorArchivo.leerLinea();
             manejadorArchivo.cerrarArchivo();
+            return (Inventario.crearInventario(ar));
         }
     }
-    public Inventario.Inventario obtenerInventario(){return inventario;}
+
+    public Inventario obtenerInventario() {
+        return inventario;
+    }
 }

@@ -81,11 +81,12 @@ public class ManejadorUsuarios {
         return usuarios;
     }
 
-    public boolean logeo(String pass, String nick, GUI.MainFrame mf) {
+    public boolean logeo(String pass, String nick, GUI.MainFrame mf, ManejadorUsuarios usersManager) {
         boolean trel = true;
         for (Usuarios.Usuario user : usuarios) {
             if (nick.equals(user.getNombre()) && pass.equals(user.getPass())) {
                 mf.dispose();
+                user.setUsersManager(usersManager);
                 user.lanzarFrame();
                 trel = false;
                 return trel;

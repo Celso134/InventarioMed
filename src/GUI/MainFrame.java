@@ -10,16 +10,17 @@ import Usuarios.*;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    ManejadorUsuarios usersManager;
+    public static ManejadorUsuarios usersManager;
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    public MainFrame(ManejadorUsuarios usersManager) {
+        this.usersManager = usersManager;
         initComponents();
-        usersManager = new ManejadorUsuarios();
-        usersManager.cargaUsuarios();
     }
-
+    public MainFrame(){
+        initComponents();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -391,6 +392,8 @@ public class MainFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                usersManager = new ManejadorUsuarios();
+                usersManager.cargaUsuarios();
                 new MainFrame().setVisible(true);
             }
         });
@@ -417,7 +420,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void ingresar(){
         boolean trel;
-        trel = usersManager.logeo(passwordField.getText(), userNameField.getText(),this);
+        trel = usersManager.logeo(passwordField.getText(), userNameField.getText(),this, usersManager);
         if(trel){
             JOptionPane.showMessageDialog(null, "Información de usuario no válida.", "Error en campos", JOptionPane.ERROR_MESSAGE);
         }

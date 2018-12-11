@@ -80,7 +80,7 @@ public class Slot implements Serializa{
             java.util.ArrayList<ProductoAgregado> productos;
             productos = new java.util.ArrayList<>();
             JSONArray jProductosAgregados = json.getJSONArray("productosAgregados");
-            for(int i = 0; i<=jProductosAgregados.length(); i++){
+            for(int i = 0; i<jProductosAgregados.length(); i++){
                 productos.add(ProductoAgregado.deserializa(jProductosAgregados.getString(i)));
             }
             slot.setProductos(productos);

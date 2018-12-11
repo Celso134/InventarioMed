@@ -16,14 +16,14 @@ import org.json.JSONObject;
 import org.json.JSONException;
 import GUI.MainFrame;
 import GUI.AdministradorFrame;
+import Managers.ManejadorInventario;
 
 public class Administrador extends Usuario{
-
     Inventario inv;
     
     public Administrador(String nombre, String pass) {
         super(nombre, pass);
-        inv = new Inventario();
+        inv = Inventario.cargaInventario();
     }
     public void crearEstante(String nombre, int cantidadSlot){
         inv.crearEstante(nombre, cantidadSlot);
@@ -37,10 +37,14 @@ public class Administrador extends Usuario{
     public void quitarProductoCatalogo(Producto producto){}
     public void quitarProductoCatalogo(String nombre){}
     public ArrayList<Estante> getEstantes(){
-        return inv.getEstantes();
+        return Inventario.cargaInventario().getEstantes();
     }
     public Inventario getInventario(){
         return inv;
+    }
+    
+    public void setInv(Inventario inv) {
+        this.inv = inv;
     }
 
     @Override
@@ -58,7 +62,7 @@ public class Administrador extends Usuario{
 
     @Override
     public void lanzarFrame() {
-        AdministradorFrame aF = new AdministradorFrame(this);
+        AdministradorFrame aF = new AdministradorFrame(this, getUsersManager());
         aF.setVisible(true);
     }
 }

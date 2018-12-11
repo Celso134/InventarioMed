@@ -35,6 +35,6 @@ public class ManejadorCatalogoProducto {
         manejadorArchivo.cerrarArchivo();
         }
     }
-    public java.util.ArrayList<Inventario.Producto> obtenerCatalogoProductos(java.util.ArrayList<Inventario.Producto> asd){
-        return asd = catalogoProducto.getProductos();}
+    public java.util.ArrayList<Inventario.Producto> obtenerCatalogoProductos(){
+        return catalogoProducto.getProductos();}
 }

@@ -116,12 +116,13 @@ public class Estante implements Serializa{
             java.util.ArrayList<Slot> slots;
             slots = new java.util.ArrayList<>();
             JSONArray jSlots = json.getJSONArray("slots");
-            for(int i = 0; i <= jSlots.length(); i++){
+            for(int i = 0; i < jSlots.length(); i++){
                 slots.add(Slot.deserializa(jSlots.getString(i)));
             }
             estante.setSlots(slots);
             return estante;
         } catch (JSONException ex) {
+            ex.printStackTrace();
             return null;
         }
     }
