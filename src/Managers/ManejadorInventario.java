@@ -18,12 +18,12 @@ public class ManejadorInventario {
 }
     
     public void guardaInventario(){
-        manejadorArchivo = new ManejadorArchivo("Usuarios",true);
+        manejadorArchivo = new ManejadorArchivo("Inventario",true);
         manejadorArchivo.escribeLinea(inventario.serializa());
         manejadorArchivo.cerrarArchivo();
     }
     public void cargaInventario(){
-        manejadorArchivo = new ManejadorArchivo("Usuarios",true);
+        manejadorArchivo = new ManejadorArchivo("Inventario",true);
         inventario = Inventario.Inventario.crearInventario(manejadorArchivo.leerLinea());
         manejadorArchivo.cerrarArchivo();
     }

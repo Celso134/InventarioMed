@@ -14,6 +14,7 @@ import Managers.*;
  */
 public class AdministradorFrame extends javax.swing.JFrame {
 
+    ManejadorInventario manejadorInventario;
     ManejadorCatalogoProducto manejadorCatalogo;
     Usuarios.Administrador admin;
     
@@ -25,6 +26,7 @@ public class AdministradorFrame extends javax.swing.JFrame {
         manejadorCatalogo = new ManejadorCatalogoProducto();
         admin = user;
         manejadorCatalogo.cargaProductos();
+        manejadorInventario = new ManejadorInventario(admin.getInventario());
     }
 
     /**
@@ -685,6 +687,7 @@ panelDerecha.removeAll();
         } else {
             admin.crearEstante(nombreEstante2.getText(), Integer.parseInt(cantidadDeEspacios.getText()), Integer.parseInt(tamanioEspacio.getText()));
             recargaCombo();
+            manejadorInventario.guardaInventario();
         }
     }
 
@@ -694,6 +697,7 @@ panelDerecha.removeAll();
         } else {
             admin.crearEstante(nombreEstante.getText(), Integer.parseInt(cantidadEspacios.getText()));
             recargaCombo();
+            manejadorInventario.guardaInventario();
         }
     }
     

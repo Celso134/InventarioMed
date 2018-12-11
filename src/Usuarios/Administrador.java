@@ -20,6 +20,7 @@ import GUI.AdministradorFrame;
 public class Administrador extends Usuario{
 
     Inventario inv;
+    
     public Administrador(String nombre, String pass) {
         super(nombre, pass);
         inv = new Inventario();
@@ -37,6 +38,9 @@ public class Administrador extends Usuario{
     public void quitarProductoCatalogo(String nombre){}
     public ArrayList<Estante> getEstantes(){
         return inv.getEstantes();
+    }
+    public Inventario getInventario(){
+        return inv;
     }
 
     @Override

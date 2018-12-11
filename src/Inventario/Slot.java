@@ -21,6 +21,10 @@ public class Slot implements Serializa{
     private java.util.ArrayList<ProductoAgregado> productos;
     private String receptorDeMaterial;
 
+    public Slot(){
+        productos = new java.util.ArrayList<>();
+    }
+    
     public int getIndex() {
         return index;
     }
