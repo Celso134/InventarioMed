@@ -86,6 +86,7 @@ public class Slot implements Serializa{
     public ArrayList<ProductoAgregado> agregaProducto(ProductoAgregado producto) {
         int currentUsedSpace = 0;
         if (productos.isEmpty()) {
+            currentUsedSpace = producto.getProducto().getDimension().getDimension();
         } else {
             for (ProductoAgregado product : productos) {
                 currentUsedSpace = (product.getProducto().getDimension().getDimension() + currentUsedSpace);
@@ -103,5 +104,10 @@ public class Slot implements Serializa{
                 return productos;
             }
         }
+    }
+
+    
+    public void agregarProducto(ProductoAgregado producto){
+        productos.add(producto);
     }
 }

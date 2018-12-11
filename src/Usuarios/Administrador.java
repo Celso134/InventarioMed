@@ -19,17 +19,25 @@ import GUI.AdministradorFrame;
 
 public class Administrador extends Usuario{
 
+    Inventario inv;
     public Administrador(String nombre, String pass) {
         super(nombre, pass);
+        inv = new Inventario();
     }
-    public void crearEstante(String nombre, int cantidadSlot){}
-    public void crearEstante(String nombre, int cantidadSlots, int espacioPorSlot){}
-    public void crearEstante(String nombre, ArrayList<Slot> slots){}
+    public void crearEstante(String nombre, int cantidadSlot){
+        inv.crearEstante(nombre, cantidadSlot);
+    }
+    public void crearEstante(String nombre, int cantidadSlots, int espacioPorSlot){
+        inv.crearEstante(nombre, cantidadSlots, espacioPorSlot);
+    }
     public void agregarProductoCatalogo(Producto producto){
     
     }
     public void quitarProductoCatalogo(Producto producto){}
     public void quitarProductoCatalogo(String nombre){}
+    public ArrayList<Estante> getEstantes(){
+        return inv.getEstantes();
+    }
 
     @Override
     public String serializa() {
@@ -49,6 +57,4 @@ public class Administrador extends Usuario{
         AdministradorFrame aF = new AdministradorFrame(this);
         aF.setVisible(true);
     }
-
-
 }

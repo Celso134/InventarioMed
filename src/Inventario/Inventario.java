@@ -20,6 +20,10 @@ public class Inventario implements Serializa{
     private java.util.ArrayList<Estante> estantes;
     private String direccion;
 
+    public Inventario(){
+        estantes = new java.util.ArrayList<>();
+    }
+    
     public ArrayList<Estante> getEstantes() {
         return estantes;
     }
@@ -38,6 +42,15 @@ public class Inventario implements Serializa{
     
     public void obtenerEstantesConEspacioLibre(){}
     
+    public void crearEstante(String nombre, int cantidadSlot){
+        Estante estante = new Estante(nombre, cantidadSlot);
+        estantes.add(estante);
+        
+    }
+    public void crearEstante(String nombre, int cantidadSlots, int espacioPorSlot){
+        Estante estante = new Estante(nombre, cantidadSlots, espacioPorSlot);
+        estantes.add(estante);
+    }
 
     @Override
     public String serializa() {

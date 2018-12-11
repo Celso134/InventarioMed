@@ -43,7 +43,7 @@ public class AdministradorFrame extends javax.swing.JFrame {
         panelDerecha = new javax.swing.JPanel();
         equisde = new javax.swing.JPanel();
         Welcome = new javax.swing.JLabel();
-        agregarProductosPanel = new javax.swing.JPanel();
+        agregarEstantesPanel = new javax.swing.JPanel();
         etiquetaFormaCrearUno = new javax.swing.JLabel();
         nombreEstante = new javax.swing.JTextField();
         estanteNeim = new javax.swing.JLabel();
@@ -57,8 +57,8 @@ public class AdministradorFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         tamanioEspacio = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        guardaEstante = new javax.swing.JButton();
+        estantes = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         ampliarCatalogoPanel = new javax.swing.JPanel();
         agregarUnProducto = new javax.swing.JLabel();
@@ -128,38 +128,66 @@ public class AdministradorFrame extends javax.swing.JFrame {
 
         panelDerecha.add(equisde, "card2");
 
-        agregarProductosPanel.setPreferredSize(new java.awt.Dimension(390, 410));
+        agregarEstantesPanel.setPreferredSize(new java.awt.Dimension(390, 410));
 
         etiquetaFormaCrearUno.setText("Crear estante por defecto");
 
         estanteNeim.setText("Nombre del estante");
 
+        cantidadEspacios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cantidadEspaciosKeyTyped(evt);
+            }
+        });
+
         espaciosDelEstante.setText("Cantidad de espacios");
 
         wardEstante.setText("Guardar estante");
+        wardEstante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wardEstanteActionPerformed(evt);
+            }
+        });
 
         etiquetaFormaCrearDos.setText("Crear estante personalizado");
 
         stanteNeim.setText("Nombre del estante");
 
+        cantidadDeEspacios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cantidadDeEspaciosKeyTyped(evt);
+            }
+        });
+
         jLabel1.setText("Cantidad de espacios");
+
+        tamanioEspacio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tamanioEspacioKeyTyped(evt);
+            }
+        });
 
         jLabel2.setText("Tamaño de cada espacio");
 
-        jButton1.setText("Guardar estante");
+        guardaEstante.setText("Guardar estante");
+        guardaEstante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardaEstanteActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin estantes" }));
+        estantes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin estantes" }));
 
         jLabel5.setText("Estantes definidos");
 
-        javax.swing.GroupLayout agregarProductosPanelLayout = new javax.swing.GroupLayout(agregarProductosPanel);
-        agregarProductosPanel.setLayout(agregarProductosPanelLayout);
-        agregarProductosPanelLayout.setHorizontalGroup(
-            agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(agregarProductosPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout agregarEstantesPanelLayout = new javax.swing.GroupLayout(agregarEstantesPanel);
+        agregarEstantesPanel.setLayout(agregarEstantesPanelLayout);
+        agregarEstantesPanelLayout.setHorizontalGroup(
+            agregarEstantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(agregarEstantesPanelLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(agregarEstantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(guardaEstante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tamanioEspacio)
                     .addComponent(cantidadDeEspacios)
                     .addComponent(wardEstante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -169,28 +197,28 @@ public class AdministradorFrame extends javax.swing.JFrame {
                     .addComponent(nombreEstante2)
                     .addComponent(etiquetaFormaCrearDos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(38, 38, 38)
-                .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(agregarEstantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(agregarEstantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(stanteNeim)
                         .addComponent(estanteNeim)
                         .addComponent(espaciosDelEstante)
                         .addComponent(jLabel1)
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(estantes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
-        agregarProductosPanelLayout.setVerticalGroup(
-            agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(agregarProductosPanelLayout.createSequentialGroup()
+        agregarEstantesPanelLayout.setVerticalGroup(
+            agregarEstantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(agregarEstantesPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(etiquetaFormaCrearUno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(agregarEstantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreEstante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(estanteNeim))
                 .addGap(18, 18, 18)
-                .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(agregarEstantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cantidadEspacios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(espaciosDelEstante))
                 .addGap(18, 18, 18)
@@ -198,27 +226,27 @@ public class AdministradorFrame extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(etiquetaFormaCrearDos)
                 .addGap(18, 18, 18)
-                .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(agregarEstantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreEstante2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(stanteNeim))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(agregarEstantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cantidadDeEspacios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(agregarEstantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tamanioEspacio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(agregarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(agregarEstantesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(guardaEstante)
+                    .addComponent(estantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addContainerGap(69, Short.MAX_VALUE))
         );
 
-        panelDerecha.add(agregarProductosPanel, "card3");
+        panelDerecha.add(agregarEstantesPanel, "card3");
 
         agregarUnProducto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         agregarUnProducto.setText("Agregar un producto al catálogo");
@@ -502,7 +530,7 @@ public class AdministradorFrame extends javax.swing.JFrame {
         panelDerecha.removeAll();
         panelDerecha.repaint();
         panelDerecha.revalidate();
-        panelDerecha.add(agregarProductosPanel);
+        panelDerecha.add(agregarEstantesPanel);
         panelDerecha.repaint();
         panelDerecha.revalidate();
     }//GEN-LAST:event_agregarEstanteActionPerformed
@@ -580,6 +608,38 @@ panelDerecha.removeAll();
         }
     }//GEN-LAST:event_fechaCaducidadKeyTyped
 
+    private void guardaEstanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaEstanteActionPerformed
+        crearEstanteUno();
+    }//GEN-LAST:event_guardaEstanteActionPerformed
+
+    private void wardEstanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wardEstanteActionPerformed
+        crearEstanteDos();
+    }//GEN-LAST:event_wardEstanteActionPerformed
+
+    private void cantidadEspaciosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadEspaciosKeyTyped
+        char c = evt.getKeyChar();
+        if ((Character.isDigit(c))) {
+        } else {
+            evt.consume();
+        }
+    }//GEN-LAST:event_cantidadEspaciosKeyTyped
+
+    private void cantidadDeEspaciosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadDeEspaciosKeyTyped
+        char c = evt.getKeyChar();
+        if ((Character.isDigit(c))) {
+        } else {
+            evt.consume();
+        }
+    }//GEN-LAST:event_cantidadDeEspaciosKeyTyped
+
+    private void tamanioEspacioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tamanioEspacioKeyTyped
+        char c = evt.getKeyChar();
+        if ((Character.isDigit(c))) {
+        } else {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tamanioEspacioKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -618,15 +678,38 @@ panelDerecha.removeAll();
             }
         }
     }
+
+    public void crearEstanteUno() {
+        if (nombreEstante2.getText().equals("") || cantidadDeEspacios.getText().equals("") || tamanioEspacio.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "No puede dejar un campo en blanco.", "Error en campos", JOptionPane.ERROR_MESSAGE);
+        } else {
+            admin.crearEstante(nombreEstante2.getText(), Integer.parseInt(cantidadDeEspacios.getText()), Integer.parseInt(tamanioEspacio.getText()));
+            recargaCombo();
+        }
+    }
+
+    public void crearEstanteDos() {
+        if (nombreEstante.getText().equals("") || cantidadEspacios.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "No puede dejar un campo en blanco.", "Error en campos", JOptionPane.ERROR_MESSAGE);
+        } else {
+            admin.crearEstante(nombreEstante.getText(), Integer.parseInt(cantidadEspacios.getText()));
+            recargaCombo();
+        }
+    }
     
-    public void crearEstante(){
     
+    public void recargaCombo(){
+        estantes.removeAllItems();
+        java.util.ArrayList<Inventario.Estante> estantes = admin.getEstantes();
+        for(Inventario.Estante estante : estantes){
+            this.estantes.addItem(estante.getNombre());
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Welcome;
     private javax.swing.JButton agregarEstante;
-    private javax.swing.JPanel agregarProductosPanel;
+    private javax.swing.JPanel agregarEstantesPanel;
     private javax.swing.JLabel agregarUnProducto;
     private javax.swing.JButton ampliarCatalogo;
     private javax.swing.JPanel ampliarCatalogoPanel;
@@ -638,16 +721,16 @@ panelDerecha.removeAll();
     private javax.swing.JPanel equisde;
     private javax.swing.JLabel espaciosDelEstante;
     private javax.swing.JLabel estanteNeim;
+    private javax.swing.JComboBox<String> estantes;
     private javax.swing.JLabel etiquetaEstante1;
     private javax.swing.JLabel etiquetaFormaCrearDos;
     private javax.swing.JLabel etiquetaFormaCrearUno;
     private javax.swing.JTextField fechaCaducidad;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton guardaEstante;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

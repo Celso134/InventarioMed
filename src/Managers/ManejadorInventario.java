@@ -12,6 +12,10 @@ package Managers;
 public class ManejadorInventario {
     private Inventario.Inventario inventario;
     private ManejadorArchivo manejadorArchivo;
+
+    public ManejadorInventario(Inventario.Inventario inventario){
+    this.inventario = inventario;
+}
     
     public void guardaInventario(){
         manejadorArchivo = new ManejadorArchivo("Usuarios",true);

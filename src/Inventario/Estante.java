@@ -19,6 +19,16 @@ public class Estante implements Serializa{
     private String nombre;
     private java.util.ArrayList<Slot> slots;
     private String descripcion;
+    private int espacioTotal;
+    private int espacioRestante;
+
+    public int getEspacioTotal() {
+        return espacioTotal;
+    }
+
+    public void setEspacioTotal(int espacioTotal) {
+        this.espacioTotal = espacioTotal;
+    }
 
     public String getNombre() {
         return nombre;
@@ -44,11 +54,41 @@ public class Estante implements Serializa{
         this.descripcion = descripcion;
     }
     
-    public Estante(String nombre, int cantidadSlots){}
-    public Estante(String nombre, java.util.ArrayList<Slot> slots){}
-    public Estante(String nombre, int cantidadSlots, int espacioPorSlot){}
+    public Estante(String nombre, int cantidadSlots){
+        this.nombre = nombre;
+        slots = new java.util.ArrayList<>();
+        for(int i = 0; i <= cantidadSlots; i++){
+            Slot slot = new Slot();
+            slot.setEspacio(50);
+            slots.add(slot);
+        }
+        for(Slot slot : slots){
+            espacioTotal = slot.getEspacio() + espacioTotal;
+        }
+        espacioRestante = espacioTotal;
+    }
+    public Estante(String nombre, int cantidadSlots, int espacioPorSlot){
+        this.nombre = nombre;
+        slots = new java.util.ArrayList<>();
+        for(int i = 0; i <= cantidadSlots; i++){
+            Slot slot = new Slot();
+            slot.setEspacio(espacioPorSlot);
+            slots.add(slot);
+        }
+        for(Slot slot : slots){
+            espacioTotal = slot.getEspacio() + espacioTotal;
+        }
+        espacioRestante = espacioTotal;
+    }
     public Estante(){}
-    public boolean agregarProducto(ProductoAgregado producto){return false;}
+    public boolean agregarProducto(ProductoAgregado producto){
+        if(producto.getProducto().getDimension().getDimension() < espacioRestante){
+            Slot slot = slots.get(1);
+            slot.agregarProducto(producto);
+            espacioRestante = espacioRestante - producto.getProducto().getDimension().getDimension();
+        }
+        return false;
+    }
 
     @Override
     public String serializa() {
@@ -56,6 +96,7 @@ public class Estante implements Serializa{
             JSONObject json = new JSONObject();
             json.put("nombreEstante", getNombre());
             json.put("descripcion", "jajajajtl");
+            json.put("tamanio", getEspacioTotal());
             JSONArray jSlots = new JSONArray();
             for(Slot slot : slots){
                 jSlots.put(slot.serializa());
@@ -71,6 +112,7 @@ public class Estante implements Serializa{
             Estante estante = new Estante();
             estante.setDescripcion(json.getString("descripcion"));
             estante.setNombre(json.getString("nombreEstante"));
+            estante.setEspacioTotal(json.getInt("tamanio"));
             java.util.ArrayList<Slot> slots;
             slots = new java.util.ArrayList<>();
             JSONArray jSlots = json.getJSONArray("slots");

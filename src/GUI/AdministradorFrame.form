@@ -104,7 +104,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="agregarProductosPanel">
+        <Container class="javax.swing.JPanel" name="agregarEstantesPanel">
           <Properties>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[390, 410]"/>
@@ -122,7 +122,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButton1" max="32767" attributes="0"/>
+                          <Component id="guardaEstante" max="32767" attributes="0"/>
                           <Component id="tamanioEspacio" max="32767" attributes="0"/>
                           <Component id="cantidadDeEspacios" max="32767" attributes="0"/>
                           <Component id="wardEstante" max="32767" attributes="0"/>
@@ -141,7 +141,7 @@
                               <Component id="espaciosDelEstante" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" max="32767" attributes="0"/>
-                              <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
+                              <Component id="estantes" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="67" max="32767" attributes="0"/>
@@ -184,8 +184,8 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="guardaEstante" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="estantes" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
@@ -208,6 +208,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="cantidadEspacios">
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cantidadEspaciosKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="espaciosDelEstante">
               <Properties>
@@ -218,6 +221,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Guardar estante"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="wardEstanteActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="etiquetaFormaCrearDos">
               <Properties>
@@ -232,6 +238,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="cantidadDeEspacios">
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cantidadDeEspaciosKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
@@ -239,18 +248,24 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tamanioEspacio">
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tamanioEspacioKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Tama&#xf1;o de cada espacio"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="guardaEstante">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Guardar estante"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="guardaEstanteActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox1">
+            <Component class="javax.swing.JComboBox" name="estantes">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="1">
