@@ -57,7 +57,7 @@ public class Estante implements Serializa{
     public Estante(String nombre, int cantidadSlots){
         this.nombre = nombre;
         slots = new java.util.ArrayList<>();
-        for(int i = 0; i <= cantidadSlots; i++){
+        for(int i = 0; i < cantidadSlots; i++){
             Slot slot = new Slot();
             slot.setEspacio(50);
             slots.add(slot);
@@ -70,7 +70,7 @@ public class Estante implements Serializa{
     public Estante(String nombre, int cantidadSlots, int espacioPorSlot){
         this.nombre = nombre;
         slots = new java.util.ArrayList<>();
-        for(int i = 0; i <= cantidadSlots; i++){
+        for(int i = 0; i < cantidadSlots; i++){
             Slot slot = new Slot();
             slot.setEspacio(espacioPorSlot);
             slots.add(slot);

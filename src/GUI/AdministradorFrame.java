@@ -27,6 +27,8 @@ public class AdministradorFrame extends javax.swing.JFrame {
         admin = user;
         manejadorCatalogo.cargaProductos();
         manejadorInventario = new ManejadorInventario(admin.getInventario());
+        manejadorInventario.cargaInventario();
+        recargaCombo();
     }
 
     /**
@@ -702,11 +704,15 @@ panelDerecha.removeAll();
     }
     
     
-    public void recargaCombo(){
-        estantes.removeAllItems();
+    public void recargaCombo() {
         java.util.ArrayList<Inventario.Estante> estantes = admin.getEstantes();
-        for(Inventario.Estante estante : estantes){
-            this.estantes.addItem(estante.getNombre());
+        if (estantes.isEmpty()) {
+
+        } else {
+            this.estantes.removeAllItems();
+            for (Inventario.Estante estante : estantes) {
+                this.estantes.addItem(estante.getNombre());
+            }
         }
     }
     
