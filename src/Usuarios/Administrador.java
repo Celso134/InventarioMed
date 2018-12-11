@@ -46,7 +46,7 @@ public class Administrador extends Usuario{
 
     @Override
     public void lanzarFrame() {
-        AdministradorFrame aF = new AdministradorFrame();
+        AdministradorFrame aF = new AdministradorFrame(this);
         aF.setVisible(true);
     }
 

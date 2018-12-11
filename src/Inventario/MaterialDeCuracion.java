@@ -35,7 +35,7 @@ public class MaterialDeCuracion extends Producto{
             json.put("descripcion", getDescripcion());
             json.put("clasificacion", getClasificacion());
             json.put("unidadDeMedida", getUnidadMedida());
-            json.put("dimension", getDimension());
+            json.put("dimension", getDimension().getNombre());
             json.put("fechaCaducidad", convertDateToString(getFechaCaducidad()));
             return json.toString();
         }catch(JSONException e){return null;}
@@ -47,14 +47,14 @@ public class MaterialDeCuracion extends Producto{
             MaterialDeCuracion materialDeCuracion = new MaterialDeCuracion();
             materialDeCuracion.setClasificacion(json.getString("clasificacion"));
             materialDeCuracion.setDescripcion(json.getString("descripcion"));
-            materialDeCuracion.setDimension(new Dimension(json.getString("nombreTamaño")));
-            materialDeCuracion.setFechaCaducidad(convertToDate(json.getString("FechaCaducidad")));
+            materialDeCuracion.setDimension(new Dimension(json.getString("dimension")));
+            materialDeCuracion.setFechaCaducidad(convertToDate(json.getString("fechaCaducidad")));
             materialDeCuracion.setPrecio(json.getLong("precio"));
-            materialDeCuracion.setUnidadMedida(json.getString("UnidadDeMedida"));
-            materialDeCuracion.setNombre(json.getString("NombreProducto"));
+            materialDeCuracion.setUnidadMedida(json.getString("unidadDeMedida"));
+            materialDeCuracion.setNombre(json.getString("nombre"));
             return materialDeCuracion;
         }catch(JSONException e){
-            e.printStackTrace();
+            System.out.println("Ese objeto no era un material de curacion, procediendo a deserealizar un Medicamento.");
             return null;
         }
     }

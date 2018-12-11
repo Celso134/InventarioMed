@@ -20,6 +20,10 @@ import org.json.JSONObject;
 public class CatalogoProducto implements Serializa{
     private ArrayList<Producto> productos;
 
+    public CatalogoProducto(){
+        productos = new ArrayList<Producto>();
+    }
+    
     public ArrayList<Producto> getProductos() {
         return productos;
     }
@@ -37,7 +41,7 @@ public class CatalogoProducto implements Serializa{
                 producto.setClasificacion(distintivo);
                 producto.setDescripcion(descripcion);
                 producto.setDimension(new Dimension(dimension));
-                producto.setFechaCaducidad(MaterialDeCuracion.convertToDate(date));
+                producto.setFechaCaducidad((MaterialDeCuracion.convertToDate(date)));
                 producto.setNombre(nombre);
                 producto.setPrecio(precio);
                 producto.setUnidadMedida(unidadMedida);

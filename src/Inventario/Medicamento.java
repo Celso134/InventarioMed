@@ -33,27 +33,27 @@ public class Medicamento extends Producto{
             json.put("nombre", getNombre());
             json.put("precio", getPrecio());
             json.put("descripcion", getDescripcion());
-            json.put("especificaicon", getEspecificacion());
+            json.put("especificacion", getEspecificacion());
             json.put("unidadDeMedida", getUnidadMedida());
-            json.put("dimension", getDimension());
+            json.put("dimension", getDimension().getNombre());
             json.put("fechaCaducidad", convertDateToString(getFechaCaducidad()));
             return json.toString();
         }catch(JSONException e){return null;}
     }
-    public static MaterialDeCuracion deserializa(String linea){
+    public static Medicamento deserializa(String linea){
         try{
             JSONObject json = new JSONObject(linea);
-            MaterialDeCuracion materialDeCuracion = new MaterialDeCuracion();
-            materialDeCuracion.setClasificacion(json.getString("especificacion"));
-            materialDeCuracion.setDescripcion(json.getString("descripcion"));
-            materialDeCuracion.setDimension(new Dimension(json.getString("nombreTamaño")));
-            materialDeCuracion.setFechaCaducidad(convertToDate(json.getString("FechaCaducidad")));
-            materialDeCuracion.setPrecio(json.getLong("precio"));
-            materialDeCuracion.setUnidadMedida(json.getString("UnidadDeMedida"));
-            materialDeCuracion.setNombre(json.getString("NombreProducto"));
-            return materialDeCuracion;
+            Medicamento medicamento = new Medicamento();
+            medicamento.setEspecificacion(json.getString("especificacion"));
+            medicamento.setDescripcion(json.getString("descripcion"));
+            medicamento.setDimension(new Dimension(json.getString("dimension")));
+            medicamento.setFechaCaducidad(convertToDate(json.getString("fechaCaducidad")));
+            medicamento.setPrecio(json.getLong("precio"));
+            medicamento.setUnidadMedida(json.getString("unidadDeMedida"));
+            medicamento.setNombre(json.getString("nombre"));
+            return medicamento;
         }catch(JSONException e){
-            e.printStackTrace();
+            System.out.println("Ese objeto no era un medicamento, procediendo a deserealizar un Material de curacion.");
             return null;
         }
     }

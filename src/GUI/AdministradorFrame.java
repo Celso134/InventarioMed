@@ -15,15 +15,16 @@ import Managers.*;
 public class AdministradorFrame extends javax.swing.JFrame {
 
     ManejadorCatalogoProducto manejadorCatalogo;
+    Usuarios.Administrador admin;
     
     /**
      * Creates new form OperadorFrame
      */
-    public AdministradorFrame() {
+    public AdministradorFrame(Usuarios.Administrador user) {
         initComponents();
         manejadorCatalogo = new ManejadorCatalogoProducto();
-        java.util.ArrayList<Inventario.Producto> inventario = new java.util.ArrayList<>();
-        inventario = manejadorCatalogo.obtenerCatalogoProductos(inventario);
+        admin = user;
+        manejadorCatalogo.cargaProductos();
     }
 
     /**
@@ -226,7 +227,18 @@ public class AdministradorFrame extends javax.swing.JFrame {
 
         tipoDeProducto.setText("Tipo de producto");
 
+        precioProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                precioProductoKeyTyped(evt);
+            }
+        });
+
         tamanioProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione tamaño", "Chico", "Mediano", "Grande" }));
+        tamanioProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tamanioProductoActionPerformed(evt);
+            }
+        });
 
         productNeim.setText("Nombre del producto");
 
@@ -241,6 +253,17 @@ public class AdministradorFrame extends javax.swing.JFrame {
         jLabel9.setText("Tamaño del producto");
 
         jButton3.setText("Agregar al catálogo");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        fechaCaducidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                fechaCaducidadKeyTyped(evt);
+            }
+        });
 
         dimensionProducto.setEditable(false);
 
@@ -517,66 +540,88 @@ panelDerecha.removeAll();
         
     }//GEN-LAST:event_listaProductosActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        agregarProductoCatalogo();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tamanioProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tamanioProductoActionPerformed
+        String cat = (String)tamanioProducto.getSelectedItem();
+        int a = tamanioProducto.getSelectedIndex();
+        switch(a){
+            case 0:
+            dimensionProducto.setText("");
+            break;
+            case 1:
+                dimensionProducto.setText(cat);
+                break;
+            case 2:
+                dimensionProducto.setText(cat);
+                break;
+            case 3:
+                dimensionProducto.setText(cat);
+                break;
+        }
+        
+    }//GEN-LAST:event_tamanioProductoActionPerformed
+
+    private void precioProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_precioProductoKeyTyped
+        char c = evt.getKeyChar();
+        if ((Character.isDigit(c)) || c =='.') {
+        } else {
+            evt.consume();
+        }
+    }//GEN-LAST:event_precioProductoKeyTyped
+
+    private void fechaCaducidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaCaducidadKeyTyped
+        char c = evt.getKeyChar();
+        if ((Character.isDigit(c)) || c =='/') {
+        } else {
+            evt.consume();
+        }
+    }//GEN-LAST:event_fechaCaducidadKeyTyped
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    
+
+    public void agregarProductoCatalogo() {
+        boolean trel = false;
+        if (nombreProducto.getText().equals("") || precioProducto.getText().equals("") || unidadDeMedida.getText().equals("") || clasifOEspecif.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "No puede dejar un campo en blanco.", "Error en campos", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (tamanioProducto.getSelectedIndex() <= 0) {
+                JOptionPane.showMessageDialog(this, "Seleccione un tamaño por favor.", "Error en campos", JOptionPane.ERROR_MESSAGE);
+            } else {
+                switch (tiposDeProducto.getSelectedIndex()) {
+                    case 0:
+                        JOptionPane.showMessageDialog(this, "Seleccione un tipo de producto porfavor.", "Error en campos", JOptionPane.ERROR_MESSAGE);
+                        trel = false;
+                        break;
+                    case 1:
+                        manejadorCatalogo.agregarProducto("Medicamento", nombreProducto.getText(), fechaCaducidad.getText(), Float.parseFloat(precioProducto.getText()), unidadDeMedida.getText(), "Medicamento", dimensionProducto.getText(), clasifOEspecif.getText());
+                        trel = true;
+                        manejadorCatalogo.guardaProductos();
+                        break;
+                    case 2:
+                        manejadorCatalogo.agregarProducto("Material", nombreProducto.getText(), fechaCaducidad.getText(), Float.parseFloat(precioProducto.getText()), unidadDeMedida.getText(), "Medicamento", dimensionProducto.getText(), clasifOEspecif.getText());
+                        trel = true;
+                        manejadorCatalogo.guardaProductos();
+                        break;
+                }
+
+                if (trel) {
+                    JOptionPane.showMessageDialog(this, "Producto agregado satisfactoriamente.", "Producto agregado", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al agregar producto.", "Error en campos", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdministradorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdministradorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdministradorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdministradorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdministradorFrame().setVisible(true);
-            }
-        });
-    }
-
-    public void agregarProductoCatalogo(){
-        boolean trel = true;
-        if(nombreProducto.getText().equals("") || precioProducto.getText().equals("") || unidadDeMedida.getText().equals("") || clasifOEspecif.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "No puede dejar un campo en blanco.", "Error en campos", JOptionPane.ERROR_MESSAGE);
-        }else{
-        switch (tiposDeProducto.getSelectedIndex()){
-            case 0:
-                JOptionPane.showMessageDialog(this, "Seleccione un tipo de producto porfavor.", "Error en campos", JOptionPane.ERROR_MESSAGE);
-                trel = false;
-                break;
-            case 1:
-                trel = manejadorCatalogo.agregarProducto("Medicamento", nombreProducto.getText(),fechaCaducidad.getText(),Float.parseFloat(precioProducto.getText()),unidadDeMedida.getText(), "Medicamento", dimensionProducto.getText(), clasifOEspecif.getText());
-                break;
-            case 2:
-                trel = manejadorCatalogo.agregarProducto("Material", nombreProducto.getText(),fechaCaducidad.getText(),Float.parseFloat(precioProducto.getText()),unidadDeMedida.getText(), "Medicamento", dimensionProducto.getText(), clasifOEspecif.getText());
-                break;
         }
     }
-        if(trel){
-            JOptionPane.showMessageDialog(this, "Producto agregado satisfactoriamente.", "Producto agregado", JOptionPane.INFORMATION_MESSAGE);
-        }
-}
     
-    public void crearEstante(){}
+    public void crearEstante(){
+    
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Welcome;
