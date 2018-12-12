@@ -25,6 +25,7 @@ public class ConsultorFrame extends javax.swing.JFrame {
         manejadorCatalogo = new ManejadorCatalogoProducto();
         manejadorCatalogo.cargaProductos();
         recargaComboUno();
+        this.setTitle("Panel del Consultor");
     }
 
     /**
@@ -317,13 +318,13 @@ if (listaProductos.getSelectedIndex() == -1) {
                 slot = slots.get(0);
                 java.util.ArrayList<Inventario.ProductoAgregado> productoss = slot.getProductos();
                 if(productoss.isEmpty()){
-                    cantidadDeProducto.setText("");
-                    tamanioEstante.setText("");
-                    especificacionOTipo.setText("");
-                    fechaCaducidad.setText("");
-                    unidadMedida.setText("");
-                    existenciasProducto.setText("");
-                    receptor.setText("");
+                    cantidadDeProducto.setText("--------");
+                    tamanioEstante.setText("--------");
+                    especificacionOTipo.setText("--------");
+                    fechaCaducidad.setText("--------");
+                    unidadMedida.setText("--------");
+                    existenciasProducto.setText("--------");
+                    receptor.setText("--------");
                 }else{
                 tamanioEstante.setText(Float.toString(productoss.get(listaProductos.getSelectedIndex()).getProducto().getPrecio()));
                 cantidadDeProducto.setText(productoss.get(listaProductos.getSelectedIndex()).getProducto().getNombre());

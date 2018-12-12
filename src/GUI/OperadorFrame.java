@@ -30,6 +30,7 @@ public class OperadorFrame extends javax.swing.JFrame {
         recargaCombo();
         recargaComboDos();
         recargaComboTres();
+        this.setTitle("Panel del Operador");
     }
 
 
@@ -435,6 +436,7 @@ public class OperadorFrame extends javax.swing.JFrame {
         if (listaProductos.getSelectedIndex() == -1) {
         } else {
             if (((String) listaProductos.getSelectedItem()).equals("Sin Productos")) {
+                cantidadDeProducto.setText("--------");
             } else {
                 java.util.ArrayList<Producto> productos = manejadorCatalogo.obtenerCatalogoProductos();
                 cantidadDeProducto.setText(Integer.toString(productos.get(listaProductos.getSelectedIndex()).getDimension().getDimension()));
@@ -466,7 +468,7 @@ public class OperadorFrame extends javax.swing.JFrame {
                 slot = slots.get(0);
                 java.util.ArrayList<Inventario.ProductoAgregado> productoss = slot.getProductos();
                 if(productoss.isEmpty()){
-                    cantidadDeProducto1.setText("");
+                    cantidadDeProducto1.setText("--------");
                 }else{
                 cantidadDeProducto1.setText(Integer.toString(productoss.get(jComboBox2.getSelectedIndex()).getProducto().getDimension().getDimension()));
             }

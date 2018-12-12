@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.JOptionPane;
 import Managers.*;
 import Usuarios.*;
+import javax.swing.JPasswordField;
 
 /**
  *
@@ -17,9 +18,11 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame(ManejadorUsuarios usersManager) {
         this.usersManager = new ManejadorUsuarios();
         this.usersManager.cargaUsuarios();
+        this.setTitle("Panel del Inventario");
     }
     public MainFrame(){
         initComponents();
+        this.setTitle("Panel del Inventario");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -351,10 +354,20 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_IniciaSesionActionPerformed
 
     private void RegistraruserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistraruserActionPerformed
+        String passw;
         int result = JOptionPane.showConfirmDialog(null, "Esta seguro?", "InfoBox: " + "confirmar", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
+            if((passw = new String(passField.getPassword())).equals(new String(repeatPassField.getPassword()))){
+            if( passw.matches(".*[a-zñ].*")
+                    && passw.matches(".*[A-ZÑ].*")
+                    && passw.matches(".*[0-9].*")
+                    && passw.matches(".*[^A-Za-zñÑ0-9 ].*")
+                    && passw.length() > 4){
             registrar();
-            usersManager.guardaUsuario();
+            usersManager.guardaUsuario();                
+            }
+            JOptionPane.showMessageDialog(this, "La contraseña es débil, debe tener al menos una letra mayúscula, una minúscula, un número, un símbolo y mínimo 5 caracteres.", "Contraseña Débil", JOptionPane.ERROR_MESSAGE);
+        }
         }
     }//GEN-LAST:event_RegistraruserActionPerformed
 
@@ -362,9 +375,6 @@ public class MainFrame extends javax.swing.JFrame {
         ingresar();
     }//GEN-LAST:event_iniciarSesionActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

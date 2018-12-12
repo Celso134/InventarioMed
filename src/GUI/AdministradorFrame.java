@@ -26,6 +26,7 @@ public class AdministradorFrame extends javax.swing.JFrame {
         manejadorInventario = new ManejadorInventario(admin.getInventario());
         recargaCombo();
         recargaComboDos();
+        this.setTitle("Panel del Administrador");
     }
 
 
@@ -620,12 +621,12 @@ panelDerecha.removeAll();
 
         } else {
             if (((String) listaProductos.getSelectedItem()).equals("Sin productos")) {
-                nombreProductoActual.setText("");
-                caducidad.setText("");
-                precio.setText("");
-                unidadMedida.setText("");
-                dimension.setText("");
-                distintivo.setText("");
+                nombreProductoActual.setText("--------");
+                caducidad.setText("--------");
+                precio.setText("--------");
+                unidadMedida.setText("--------");
+                dimension.setText("--------");
+                distintivo.setText("--------");
             } else {
                 java.util.ArrayList<Producto> productos = manejadorCatalogo.obtenerCatalogoProductos();
                 nombreProductoActual.setText((String) listaProductos.getSelectedItem());
