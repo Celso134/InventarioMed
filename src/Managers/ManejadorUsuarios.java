@@ -67,6 +67,7 @@ public class ManejadorUsuarios {
     }
 
     public java.util.ArrayList<Usuarios.Usuario> cargaUsuarios() {
+        try{
         try (java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(new java.io.File("Usuarios")))) {
             String line;
             Usuario usuario;
@@ -74,6 +75,9 @@ public class ManejadorUsuarios {
                 if ((usuario = Usuarios.Usuario.deserializa(line)) != null) {
                     usuarios.add(usuario);
                 }
+            }
+            }catch(java.io.FileNotFoundException e){
+                System.out.println("Iniciando Cold-Start");
             }
         } catch (java.io.IOException e) {
             e.printStackTrace();
