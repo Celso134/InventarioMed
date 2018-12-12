@@ -53,7 +53,6 @@ public class Medicamento extends Producto{
             medicamento.setNombre(json.getString("nombre"));
             return medicamento;
         }catch(JSONException e){
-            System.out.println("Ese no era un medicamento, procediendo a deserealizar un Material de curacion.");
             return null;
         }
     }

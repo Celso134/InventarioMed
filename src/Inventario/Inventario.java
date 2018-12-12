@@ -42,9 +42,6 @@ public class Inventario implements Serializa{
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-    
-    public void obtenerEstantesConEspacioLibre(){}
-    
     public void crearEstante(String nombre, int cantidadSlot){
         Estante estante = new Estante(nombre, cantidadSlot);
         estantes.add(estante);
@@ -96,7 +93,7 @@ public class Inventario implements Serializa{
     }
     
     
-       public static Inventario cargaInventario() {
+    public static Inventario cargaInventario() {
            String ar;
            Inventario inv = new Inventario();
         manejadorArchivo = new ManejadorArchivo("Inventario", true);
@@ -107,7 +104,6 @@ public class Inventario implements Serializa{
         } else {
             manejadorArchivo.cerrarArchivo();
             manejadorArchivo = new ManejadorArchivo("Inventario", true);
-            System.out.println("Inventario cargado");
             ar = manejadorArchivo.leerLinea();
             manejadorArchivo.cerrarArchivo();
             return (Inventario.crearInventario(ar));

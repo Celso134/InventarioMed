@@ -35,7 +35,6 @@ public class ManejadorInventario {
         } else {
             manejadorArchivo.cerrarArchivo();
             manejadorArchivo = new ManejadorArchivo("Inventario", true);
-            System.out.println("Inventario cargado");
             ar = manejadorArchivo.leerLinea();
             manejadorArchivo.cerrarArchivo();
             return (Inventario.crearInventario(ar));

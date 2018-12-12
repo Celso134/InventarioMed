@@ -31,7 +31,6 @@ public class ManejadorCatalogoProducto {
         }else{manejadorArchivo.cerrarArchivo();
         manejadorArchivo = new ManejadorArchivo("Catalogo",true);
         catalogoProducto = CatalogoProducto.deserealiza(manejadorArchivo.leerLinea());
-        System.out.println("Catálogo cargado.");
         manejadorArchivo.cerrarArchivo();
         }
     }

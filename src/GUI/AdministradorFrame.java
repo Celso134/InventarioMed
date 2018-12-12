@@ -11,19 +11,13 @@ import Inventario.Inventario;
 import Inventario.Estante;
 import Inventario.Producto;
 
-/**
- *
- * @author copec
- */
 public class AdministradorFrame extends javax.swing.JFrame {
 
     ManejadorInventario manejadorInventario;
     ManejadorCatalogoProducto manejadorCatalogo;
     Usuarios.Administrador admin;
-    ManejadorUsuarios usersManager;
     
-    public AdministradorFrame(Usuarios.Administrador user, ManejadorUsuarios usersManager) {
-        this.usersManager = usersManager;
+    public AdministradorFrame(Usuarios.Administrador user) {
         initComponents();
         manejadorCatalogo = new ManejadorCatalogoProducto();
         admin = user;
@@ -391,7 +385,7 @@ public class AdministradorFrame extends javax.swing.JFrame {
 
         reducirCatalogoPanel.setPreferredSize(new java.awt.Dimension(390, 410));
 
-        listaProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Productos" }));
+        listaProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin productos" }));
         listaProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listaProductosActionPerformed(evt);
@@ -624,13 +618,16 @@ panelDerecha.removeAll();
         if (listaProductos.getSelectedIndex() == -1) {
 
         } else {
-            if (((String) listaProductos.getSelectedItem()).equals("Productos")) {
-
+            if (((String) listaProductos.getSelectedItem()).equals("Sin productos")) {
+                nombreProductoActual.setText("");
+                caducidad.setText("");
+                precio.setText("");
+                unidadMedida.setText("");
+                dimension.setText("");
+                distintivo.setText("");
             } else {
                 java.util.ArrayList<Producto> productos = manejadorCatalogo.obtenerCatalogoProductos();
-
-                nombreProductoActual.setText(
-                        (String) listaProductos.getSelectedItem());
+                nombreProductoActual.setText((String) listaProductos.getSelectedItem());
                 caducidad.setText(productos.get(listaProductos.getSelectedIndex()).convertDateToString(productos.get(listaProductos.getSelectedIndex()).getFechaCaducidad()));
                 precio.setText("$" + Float.toString(productos.get(listaProductos.getSelectedIndex()).getPrecio()));
                 unidadMedida.setText(productos.get(listaProductos.getSelectedIndex()).getUnidadMedida());
@@ -804,6 +801,8 @@ panelDerecha.removeAll();
         java.util.ArrayList<Producto> productos = manejadorCatalogo.obtenerCatalogoProductos();
         if(productos.isEmpty()){
             System.out.println("Sin catalogo");
+            listaProductos.removeAllItems();
+            listaProductos.addItem("Sin productos");
         }else{
             listaProductos.removeAllItems();
             for (Producto product : productos){

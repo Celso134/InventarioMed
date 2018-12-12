@@ -9,19 +9,30 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import GUI.MainFrame;
 import GUI.ConsultorFrame;
+import Inventario.Estante;
+import Inventario.Inventario;
 
 /**
  *
  * @author copec
  */
 public class Consultor extends Usuario{
-
+    
+    Managers.ManejadorCatalogoProducto manejadorCatalogo;
+    Managers.ManejadorInventario manejadorInventario;
+    Inventario inv;
+    
     public Consultor(String nombre, String pass) {
         super(nombre, pass);
+        inv = Inventario.cargaInventario();
     }
-    
-    public void consultarProductoEnInventario(){}
-
+    public Inventario getInventario(){
+        return inv;
+    }
+    public java.util.ArrayList<Estante> getEstantes(){
+        inv = Inventario.cargaInventario();  
+        return inv.getEstantes();
+    }
     @Override
     public String serializa() {
         try {
@@ -37,7 +48,11 @@ public class Consultor extends Usuario{
 
     @Override
     public void lanzarFrame() {
-        ConsultorFrame cF = new ConsultorFrame();
+        ConsultorFrame cF = new ConsultorFrame(this);
         cF.setVisible(true);
+    }
+    
+    public void actualizaInventario(){
+        inv = Inventario.cargaInventario();
     }
 }

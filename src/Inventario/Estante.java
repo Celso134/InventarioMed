@@ -83,14 +83,24 @@ public class Estante implements Serializa{
     }
     public Estante(){}
     public void agregarProducto(ProductoAgregado producto) {
-        if (producto.getProducto().getDimension().getDimension() < espacioRestante) {
+        if (producto.getProducto().getDimension().getDimension() <= espacioRestante) {
             Slot slot = slots.get(0);
             slot.agregarProducto(producto);
-            System.out.println(producto.getProducto().getDimension().getDimension());
             this.espacioRestante = espacioRestante - producto.getProducto().getDimension().getDimension();
-            System.out.println(espacioRestante);
         } else {
             JOptionPane.showMessageDialog(null, "Espacio insuficiente.", "Error en campos", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    public void quitarProducto(int index){
+        ProductoAgregado producto;
+        Slot slot = slots.get(0);
+        producto = slot.quitaProducto(index);
+        try{
+        this.espacioRestante = espacioRestante + producto.getProducto().getDimension().getDimension();
+        setEspacioRestante(espacioRestante);
+        JOptionPane.showMessageDialog(null, "Para proseguir eliminando productos, guarde cambios por favor.", "Error en campos", JOptionPane.INFORMATION_MESSAGE);
+        }catch(NullPointerException e){
+            JOptionPane.showMessageDialog(null, "No hay productos para quitar.", "Error en campos", JOptionPane.ERROR_MESSAGE);
         }
     }
 

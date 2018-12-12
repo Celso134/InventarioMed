@@ -24,10 +24,12 @@ public class OperadorFrame extends javax.swing.JFrame {
         initComponents();
         op = operador;
         manejadorInventario = new ManejadorInventario(op.getInventario());
+        manejadorInventario.setInventario(manejadorInventario.cargaInventario());
         manejadorCatalogo = new ManejadorCatalogoProducto();
         manejadorCatalogo.cargaProductos();
         recargaCombo();
         recargaComboDos();
+        recargaComboTres();
     }
 
 
@@ -65,6 +67,7 @@ public class OperadorFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        eliminarDeEstante = new javax.swing.JButton();
         panelIzquierda = new javax.swing.JPanel();
         agregarProductos = new javax.swing.JButton();
         eliminarProductos = new javax.swing.JButton();
@@ -120,7 +123,7 @@ public class OperadorFrame extends javax.swing.JFrame {
             }
         });
 
-        etiquetaProducto.setText("Producto: \"   \"");
+        etiquetaProducto.setText("Productos del catálogo");
 
         cantidadDeProducto.setEditable(false);
         cantidadDeProducto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -215,17 +218,28 @@ public class OperadorFrame extends javax.swing.JFrame {
 
         eliminarProductosPanel.setPreferredSize(new java.awt.Dimension(390, 410));
 
-        listaEstantes1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin estantes" }));
+        listaEstantes1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nada" }));
+        listaEstantes1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaEstantes1ActionPerformed(evt);
+            }
+        });
 
         etiquetaEstante1.setText("Estante: \"  \"");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin productos", " " }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin productos" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
-        etiquetaProducto1.setText("Producto: \"   \"");
+        etiquetaProducto1.setText("Productos del estante.");
 
+        cantidadDeProducto1.setEditable(false);
         cantidadDeProducto1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        cantidadProducto1.setText("Ingrese la cantidad");
+        cantidadProducto1.setText("Tamaño del producto");
 
         tamanioEstante1.setEditable(false);
         tamanioEstante1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -239,6 +253,18 @@ public class OperadorFrame extends javax.swing.JFrame {
 
         jButton2.setText("Guardar cambios");
         jButton2.setToolTipText("");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        eliminarDeEstante.setText("Eliminar del estante");
+        eliminarDeEstante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarDeEstanteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout eliminarProductosPanelLayout = new javax.swing.GroupLayout(eliminarProductosPanel);
         eliminarProductosPanel.setLayout(eliminarProductosPanelLayout);
@@ -263,7 +289,10 @@ public class OperadorFrame extends javax.swing.JFrame {
                             .addComponent(jLabel4)))
                     .addGroup(eliminarProductosPanelLayout.createSequentialGroup()
                         .addGap(118, 118, 118)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(eliminarProductosPanelLayout.createSequentialGroup()
+                        .addGap(126, 126, 126)
+                        .addComponent(eliminarDeEstante)))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         eliminarProductosPanelLayout.setVerticalGroup(
@@ -281,15 +310,17 @@ public class OperadorFrame extends javax.swing.JFrame {
                 .addGroup(eliminarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cantidadDeProducto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cantidadProducto1))
-                .addGap(52, 52, 52)
+                .addGap(18, 18, 18)
                 .addGroup(eliminarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tamanioEstante1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(39, 39, 39)
-                .addGroup(eliminarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(eliminarProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tamanioRestanteEstante1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(51, 51, 51)
+                .addGap(35, 35, 35)
+                .addComponent(eliminarDeEstante)
+                .addGap(48, 48, 48)
                 .addComponent(jButton2)
                 .addContainerGap(57, Short.MAX_VALUE))
         );
@@ -386,6 +417,7 @@ public class OperadorFrame extends javax.swing.JFrame {
                 java.util.ArrayList<Inventario.Estante> estantes = op.getEstantes();
                 tamanioEstante.setText(Integer.toString(estantes.get(listaEstantes.getSelectedIndex()).getEspacioTotal()));
                 tamanioRestanteEstante.setText(Integer.toString(estantes.get(listaEstantes.getSelectedIndex()).getEspacioRestante()));
+                etiquetaEstante.setText("Estante : " + "\"" +estantes.get(listaEstantes.getSelectedIndex()).getNombre() +"\"");
             }
         }
 
@@ -411,8 +443,66 @@ public class OperadorFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_listaProductosActionPerformed
 
+    private void listaEstantes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaEstantes1ActionPerformed
+       if (listaEstantes1.getSelectedIndex() == -1) {} else {
+            if (((String) listaEstantes1.getSelectedItem()).equals("Nada")) {} else {
+                java.util.ArrayList<Inventario.Estante> estantes = op.getEstantes();
+                tamanioEstante1.setText(Integer.toString(estantes.get(listaEstantes1.getSelectedIndex()).getEspacioTotal()));
+                tamanioRestanteEstante1.setText(Integer.toString(estantes.get(listaEstantes1.getSelectedIndex()).getEspacioRestante()));
+                recargaComboCuatro(estantes.get(listaEstantes1.getSelectedIndex()));
+            }
+        }
+    }//GEN-LAST:event_listaEstantes1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        if (jComboBox2.getSelectedIndex() == -1) {
+        } else {
+            if ((((String) jComboBox2.getSelectedItem()).equals("Sin Productos"))) {
+            } else {
+                java.util.ArrayList<Inventario.Estante> estantes = op.getEstantes();
+                Inventario.Estante estante = estantes.get(listaEstantes1.getSelectedIndex());
+                Inventario.Slot slot;
+                java.util.ArrayList<Inventario.Slot> slots = estante.getSlots();
+                slot = slots.get(0);
+                java.util.ArrayList<Inventario.ProductoAgregado> productoss = slot.getProductos();
+                if(productoss.isEmpty()){
+                    cantidadDeProducto1.setText("");
+                }else{
+                cantidadDeProducto1.setText(Integer.toString(productoss.get(jComboBox2.getSelectedIndex()).getProducto().getDimension().getDimension()));
+            }
+            }
+        }
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void eliminarDeEstanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarDeEstanteActionPerformed
+        if (listaEstantes1.getSelectedIndex() == -1) {
+        } else {
+            if (((String) listaEstantes1.getSelectedItem()).equals("Nada")) {
+            } else {
+                int result = JOptionPane.showConfirmDialog(null, "Esta seguro?", "InfoBox: " + "confirmar", JOptionPane.OK_CANCEL_OPTION);
+                if (result == JOptionPane.OK_OPTION) {
+                    java.util.ArrayList<Inventario.Estante> estantes = op.getEstantes();
+                    quitarProductoEstante();
+                    recargaComboCuatro(estantes.get(listaEstantes1.getSelectedIndex()));
+                    tamanioRestanteEstante1.setText(Integer.toString(estantes.get(listaEstantes1.getSelectedIndex()).getEspacioRestante()));
+                }
+            }
+        }
+    }//GEN-LAST:event_eliminarDeEstanteActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        manejadorInventario.guardaInventario(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     public void quitarProductoEstante(){
-        
+        if (listaEstantes1.getSelectedIndex() == -1) {}
+            if (((String) listaEstantes1.getSelectedItem()).equals("Sin productos")) {
+                } else {
+                    java.util.ArrayList<Inventario.Estante> estantes = op.getInventario().getEstantes();
+                    Inventario.Estante estante = estantes.get(listaEstantes1.getSelectedIndex());
+                    estante.quitarProducto(jComboBox2.getSelectedIndex());   
+                    manejadorInventario.setInventario(op.getInventario());
+                }
     }
 
     public void agregarProductoEstante() {
@@ -458,6 +548,32 @@ public class OperadorFrame extends javax.swing.JFrame {
         }
     }
     
+    public void recargaComboTres(){
+        java.util.ArrayList<Inventario.Estante> estantes = op.getInventario().getEstantes();    
+        if (estantes.isEmpty()) {
+            System.out.println("Sin estantes"); 
+        } else {
+            listaEstantes1.removeAllItems();
+            for (Inventario.Estante estante : estantes) {
+                listaEstantes1.addItem(estante.getNombre());
+            }
+        }
+    }
+    
+    public void recargaComboCuatro(Inventario.Estante estante) {
+        Inventario.Slot slot;
+        java.util.ArrayList<Inventario.Slot> slots = estante.getSlots();
+        slot = slots.get(0);
+        java.util.ArrayList<Inventario.ProductoAgregado> productos = slot.getProductos();
+        jComboBox2.removeAllItems();
+        if(productos.isEmpty()){
+            jComboBox2.addItem("Sin productos");
+        }else{
+        for (Inventario.ProductoAgregado producto : productos) {
+            jComboBox2.addItem(producto.getProducto().getNombre());
+        }
+    }
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Welcome;
     private javax.swing.JButton agregar;
@@ -468,6 +584,7 @@ public class OperadorFrame extends javax.swing.JFrame {
     private javax.swing.JLabel cantidadProducto;
     private javax.swing.JLabel cantidadProducto1;
     private javax.swing.JButton cerrarSesion;
+    private javax.swing.JButton eliminarDeEstante;
     private javax.swing.JButton eliminarProductos;
     private javax.swing.JPanel eliminarProductosPanel;
     private javax.swing.JPanel equisde;

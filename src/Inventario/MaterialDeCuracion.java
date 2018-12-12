@@ -55,7 +55,6 @@ public class MaterialDeCuracion extends Producto{
             materialDeCuracion.setNombre(json.getString("nombre"));
             return materialDeCuracion;
         }catch(JSONException e){
-            System.out.println("Ese objeto no era un material de curacion, procediendo a deserealizar un Medicamento.");
             return null;
         }
     }

@@ -114,4 +114,13 @@ public class Slot implements Serializa{
     public void agregarProducto(ProductoAgregado producto){
         productos.add(producto);
     }
+    public ProductoAgregado quitaProducto(int index){
+        if(productos.isEmpty()){
+        return null;   
+        }else{
+        ProductoAgregado producto = productos.get(index);
+        productos.remove(index);
+        return producto;
+        }
+    }
 }
