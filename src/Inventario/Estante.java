@@ -8,6 +8,7 @@ package Inventario;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -81,13 +82,15 @@ public class Estante implements Serializa{
         espacioRestante = espacioTotal;
     }
     public Estante(){}
-    public void agregarProducto(ProductoAgregado producto){
-        if(producto.getProducto().getDimension().getDimension() < espacioRestante){
-            Slot slot = slots.get(1);
+    public void agregarProducto(ProductoAgregado producto) {
+        if (producto.getProducto().getDimension().getDimension() < espacioRestante) {
+            Slot slot = slots.get(0);
             slot.agregarProducto(producto);
             System.out.println(producto.getProducto().getDimension().getDimension());
             this.espacioRestante = espacioRestante - producto.getProducto().getDimension().getDimension();
             System.out.println(espacioRestante);
+        } else {
+            JOptionPane.showMessageDialog(null, "Espacio insuficiente.", "Error en campos", JOptionPane.ERROR_MESSAGE);
         }
     }
 

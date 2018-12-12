@@ -16,6 +16,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame(ManejadorUsuarios usersManager) {
         this.usersManager = usersManager;
+        usersManager.cargaUsuarios();
         initComponents();
     }
     public MainFrame(){

@@ -114,12 +114,18 @@ public class OperadorFrame extends javax.swing.JFrame {
         etiquetaEstante.setText("Estante: \"  \"");
 
         listaProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin productos" }));
+        listaProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaProductosActionPerformed(evt);
+            }
+        });
 
         etiquetaProducto.setText("Producto: \"   \"");
 
+        cantidadDeProducto.setEditable(false);
         cantidadDeProducto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        cantidadProducto.setText("Ingrese la cantidad");
+        cantidadProducto.setText("Tamaño del producto");
 
         tamanioEstante.setEditable(false);
         tamanioEstante.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -378,8 +384,8 @@ public class OperadorFrame extends javax.swing.JFrame {
         if (listaEstantes.getSelectedIndex() == -1) {} else {
             if (((String) listaEstantes.getSelectedItem()).equals("Nada")) {} else {
                 java.util.ArrayList<Inventario.Estante> estantes = op.getEstantes();
-                tamanioEstante.setText(Integer.toString(estantes.get(listaProductos.getSelectedIndex()).getEspacioTotal()));
-                tamanioRestanteEstante.setText(Integer.toString(estantes.get(listaProductos.getSelectedIndex()).getEspacioRestante()));
+                tamanioEstante.setText(Integer.toString(estantes.get(listaEstantes.getSelectedIndex()).getEspacioTotal()));
+                tamanioRestanteEstante.setText(Integer.toString(estantes.get(listaEstantes.getSelectedIndex()).getEspacioRestante()));
             }
         }
 
@@ -392,6 +398,18 @@ public class OperadorFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         manejadorInventario.guardaInventario(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void listaProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaProductosActionPerformed
+        if (listaProductos.getSelectedIndex() == -1) {
+        } else {
+            if (((String) listaProductos.getSelectedItem()).equals("Sin Productos")) {
+            } else {
+                java.util.ArrayList<Producto> productos = manejadorCatalogo.obtenerCatalogoProductos();
+                cantidadDeProducto.setText(Integer.toString(productos.get(listaProductos.getSelectedIndex()).getDimension().getDimension()));
+            }
+        }
+
+    }//GEN-LAST:event_listaProductosActionPerformed
 
     public void quitarProductoEstante(){
         
@@ -414,24 +432,6 @@ public class OperadorFrame extends javax.swing.JFrame {
                     op.getInventario().setEstantes(estantes);
                     manejadorInventario.setInventario(op.getInventario());
                 }
-            
-        
-        if (((String) listaEstantes.getSelectedItem()).equals("Sin estantes")) {
-        } else {
-            Inventario.Producto produucto;
-            java.util.ArrayList<Producto> productos = manejadorCatalogo.obtenerCatalogoProductos();
-            produucto = productos.get(listaProductos.getSelectedIndex());
-            Inventario.ProductoAgregado producto;
-            Inventario.Estante estante;
-            producto = new Inventario.ProductoAgregado(produucto, op.getNombre());
-            java.util.ArrayList<Inventario.Estante> estantes = op.getInventario().getEstantes();
-            estante = estantes.get(listaEstantes.getSelectedIndex());
-            estante.agregarProducto(producto);
-            tamanioRestanteEstante.setText(Integer.toString(estante.getEspacioRestante()));
-            op.getInventario().setEstantes(estantes);
-            manejadorInventario.setInventario(op.getInventario());
-        }
-
     }
 
     public void recargaCombo(){
