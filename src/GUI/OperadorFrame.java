@@ -22,7 +22,7 @@ public class OperadorFrame extends javax.swing.JFrame {
     
     public OperadorFrame(Operador operador) {
         initComponents();
-        op = operador;
+        op = new Operador(operador.getNombre(), operador.getPass());
         manejadorInventario = new ManejadorInventario(op.getInventario());
         manejadorInventario.setInventario(manejadorInventario.cargaInventario());
         manejadorCatalogo = new ManejadorCatalogoProducto();

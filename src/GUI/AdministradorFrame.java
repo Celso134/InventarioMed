@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import Managers.*;
 import Inventario.Inventario;
 import Inventario.Estante;
+import Inventario.MaterialDeCuracion;
 import Inventario.Producto;
 
 public class AdministradorFrame extends javax.swing.JFrame {
@@ -737,28 +738,33 @@ panelDerecha.removeAll();
         } else {
             if (tamanioProducto.getSelectedIndex() <= 0) {
                 JOptionPane.showMessageDialog(this, "Seleccione un tamaño por favor.", "Error en campos", JOptionPane.ERROR_MESSAGE);
-            } else {
-                switch (tiposDeProducto.getSelectedIndex()) {
-                    case 0:
-                        JOptionPane.showMessageDialog(this, "Seleccione un tipo de producto porfavor.", "Error en campos", JOptionPane.ERROR_MESSAGE);
-                        trel = false;
-                        break;
-                    case 1:
-                        manejadorCatalogo.agregarProducto("Medicamento", nombreProducto.getText(), fechaCaducidad.getText(), Float.parseFloat(precioProducto.getText()), unidadDeMedida.getText(), "Medicamento", dimensionProducto.getText(), clasifOEspecif.getText());
-                        trel = true;
-                        manejadorCatalogo.guardaProductos();
-                        break;
-                    case 2:
-                        manejadorCatalogo.agregarProducto("Material", nombreProducto.getText(), fechaCaducidad.getText(), Float.parseFloat(precioProducto.getText()), unidadDeMedida.getText(), "Medicamento", dimensionProducto.getText(), clasifOEspecif.getText());
-                        trel = true;
-                        manejadorCatalogo.guardaProductos();
-                        break;
-                }
+            } else{
+                if(MaterialDeCuracion.validaFecha(fechaCaducidad.getText())){
+                    System.out.println("¿Es fecha válida? " + MaterialDeCuracion.validaFecha(fechaCaducidad.getText()) + " - " + fechaCaducidad.getText());
+                    switch (tiposDeProducto.getSelectedIndex()) {
+                        case 0:
+                            JOptionPane.showMessageDialog(this, "Seleccione un tipo de producto porfavor.", "Error en campos", JOptionPane.ERROR_MESSAGE);
+                            trel = false;
+                            break;
+                        case 1:
+                            manejadorCatalogo.agregarProducto("Medicamento", nombreProducto.getText(), fechaCaducidad.getText(), Float.parseFloat(precioProducto.getText()), unidadDeMedida.getText(), "Medicamento", dimensionProducto.getText(), clasifOEspecif.getText());
+                            trel = true;
+                            manejadorCatalogo.guardaProductos();
+                            break;
+                        case 2:
+                            manejadorCatalogo.agregarProducto("Material", nombreProducto.getText(), fechaCaducidad.getText(), Float.parseFloat(precioProducto.getText()), unidadDeMedida.getText(), "Medicamento", dimensionProducto.getText(), clasifOEspecif.getText());
+                            trel = true;
+                            manejadorCatalogo.guardaProductos();
+                            break;
+                    }
 
-                if (trel) {
-                    JOptionPane.showMessageDialog(this, "Producto agregado satisfactoriamente.", "Producto agregado", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error al agregar producto.", "Error en campos", JOptionPane.ERROR_MESSAGE);
+                    if (trel) {
+                        JOptionPane.showMessageDialog(this, "Producto agregado satisfactoriamente.", "Producto agregado", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error al agregar producto.", "Error en campos", JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this, "Error al agregar producto. Fecha no válida.", "Error en campos", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

@@ -59,16 +59,27 @@ public class MaterialDeCuracion extends Producto{
         }
     }
     
-    public static java.util.Date convertToDate(String date){
+    public static boolean validaFecha(String stringDate){
         try {
-            return new SimpleDateFormat("dd/mm/yyyy").parse(date);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            java.util.Date date = sdf.parse(stringDate);
+            return stringDate.equals(sdf.format(date));
         } catch (ParseException ex) {
+            return false;
+        }
+    }
+    
+    public static java.util.Date convertToDate(String stringDate){
+        try{
+            return validaFecha(stringDate) ? new SimpleDateFormat("dd/MM/yyyy").parse(stringDate) : null;
+        }catch(ParseException ignore){
+            ignore.printStackTrace();
             return null;
         }
     }
     
     public String convertDateToString(java.util.Date date){
-        return new SimpleDateFormat("dd/mm/yyyy").format(date);
+        return new SimpleDateFormat("dd/MM/yyyy").format(date);
     }
 
     @Override
